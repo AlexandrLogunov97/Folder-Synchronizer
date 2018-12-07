@@ -21,7 +21,7 @@ namespace Work1.Utils
             }
             set
             {
-                adress = $"{value}{name}/";
+                adress = String.Format("{0}{1}/",value,name);
             }
         }
         public Uri Icon { get; set; }
@@ -58,7 +58,7 @@ namespace Work1.Utils
         }
         public override string ToString()
         {
-            return $"{Name} ({this.adress})";
+            return "";
         }
     }
 }

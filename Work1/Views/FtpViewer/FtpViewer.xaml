@@ -86,7 +86,7 @@
                         <Grid.RowDefinitions>
                             <RowDefinition></RowDefinition>
                         </Grid.RowDefinitions>
-                        <TextBox Grid.ColumnSpan="2" x:Name="DerictorySearch" Margin="5,5,5,5" Height="30" VerticalContentAlignment="Center" FontSize="16" Padding="0,0,30,0">
+                        <TextBox Grid.ColumnSpan="2" BorderBrush="LightGray" x:Name="DerictorySearch" Margin="5,5,5,5" Height="30" VerticalContentAlignment="Center" FontSize="16" Padding="0,0,30,0">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="KeyDown">
                                     <i:InvokeCommandAction

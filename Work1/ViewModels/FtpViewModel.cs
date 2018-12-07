@@ -12,7 +12,7 @@ namespace Work1.ViewModels
 {
     class FtpViewModel : ViewModel
     {
-        public string FtpUri { get; set; } = "ftp://192.168.1.34:3721/";
+        public string FtpUri { get; set; }
         public string PrevAdress { get; set; }
         public FileDirectoryInfo SelectedDirectory { get; set; }
         
@@ -103,6 +103,7 @@ namespace Work1.ViewModels
         }
         public FtpViewModel()
         {
+            FtpUri = "ftp://192.168.1.100:3721/";
         }
     }
 }

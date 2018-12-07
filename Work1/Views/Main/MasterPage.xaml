@@ -97,7 +97,7 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <ListBox Width="200" x:Name="Menu" s:CloseMenu.Menu="True" Background="#626f80" MinWidth="0" MaxWidth="200" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
-                <ListBoxItem IsSelected="True" s:MasterPage.MenuItem="True" s:MasterPage.MenuItemSource="Views/CreateRepository/SelectTypeConnection.xaml"   Content="Add repository" Foreground="White" FontSize="14"/>
+                <ListBoxItem IsSelected="True" s:MasterPage.MenuItem="True" s:MasterPage.MenuItemSource="Views/FileSystemViewer/FileSystemViewer.xaml"   Content="Add repository" Foreground="White" FontSize="14"/>
                 <ListBoxItem s:MasterPage.MenuItem="True" s:MasterPage.MenuItemSource="Views/Repositories/Repositories.xaml" Content="Repositories" Background="{x:Null}" Foreground="White" FontSize="14"/>
                 <!--<ListBoxItem  Content="Tasks" Background="{x:Null}" Foreground="White" FontSize="14"/>
                 <ListBoxItem  Content="Tagging" Background="{x:Null}" Foreground="White" FontSize="14"/>-->

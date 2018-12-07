@@ -1,17 +1,244 @@
-﻿<Page x:Class="Work1.Views.FileSystemViewer.FileSystemViewer"
+﻿<Page
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Work1.Views.FileSystemViewer"
-      mc:Ignorable="d" 
+      xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Classic" x:Class="Work1.Views.FileSystemViewer.FileSystemViewer"
+        xmlns:s="clr-namespace:S;assembly=S"  
+    mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="FileSystemViewer" Background="White">
     <Page.Resources>
         <Style TargetType="{x:Type Grid}">
+            <Setter Property="ShowGridLines" Value="False"/>
+        </Style>
+        <Style x:Key="ExpanderRightHeaderStyle" TargetType="{x:Type ToggleButton}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+                        <Border Padding="{TemplateBinding Padding}" Background="#FFBB0505">
+                            <Grid Background="Transparent" SnapsToDevicePixels="False">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="19"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Themes:ClassicBorderDecorator x:Name="Bd" BorderBrush="{x:Static Themes:ClassicBorderDecorator.ClassicBorderBrush}" BorderThickness="1" BorderStyle="None" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Height="19" SnapsToDevicePixels="true" Width="19">
+                                    <Path x:Name="arrow" Data="M 1,1.5 L 4.5,5 L 8,1.5" HorizontalAlignment="Center" SnapsToDevicePixels="false" Stroke="{TemplateBinding Foreground}" StrokeThickness="1.5" VerticalAlignment="Center">
+                                        <Path.LayoutTransform>
+                                            <RotateTransform Angle="-90"/>
+                                        </Path.LayoutTransform>
+                                    </Path>
+                                </Themes:ClassicBorderDecorator>
+                                <ContentPresenter HorizontalAlignment="Center" Margin="0,4,0,0" Grid.Row="1" RecognizesAccessKey="True" SnapsToDevicePixels="True" VerticalAlignment="Top"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="true">
+                                <Setter Property="Data" TargetName="arrow" Value="M 1,4.5  L 4.5,1  L 8,4.5"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="BorderStyle" TargetName="Bd" Value="ThinRaised"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="BorderStyle" TargetName="Bd" Value="ThinPressed"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ExpanderUpHeaderStyle" TargetType="{x:Type ToggleButton}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+                        <Border Padding="{TemplateBinding Padding}">
+                            <Grid Background="Transparent" SnapsToDevicePixels="False">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="19"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Themes:ClassicBorderDecorator x:Name="Bd" BorderBrush="{x:Static Themes:ClassicBorderDecorator.ClassicBorderBrush}" BorderThickness="1" BorderStyle="None" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Height="19" SnapsToDevicePixels="true" Width="19">
+                                    <Path x:Name="arrow" Data="M 1,1.5 L 4.5,5 L 8,1.5" HorizontalAlignment="Center" SnapsToDevicePixels="false" Stroke="{TemplateBinding Foreground}" StrokeThickness="1.5" VerticalAlignment="Center">
+                                        <Path.LayoutTransform>
+                                            <RotateTransform Angle="180"/>
+                                        </Path.LayoutTransform>
+                                    </Path>
+                                </Themes:ClassicBorderDecorator>
+                                <ContentPresenter Grid.Column="1" HorizontalAlignment="Left" Margin="4,0,0,0" RecognizesAccessKey="True" SnapsToDevicePixels="True" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="true">
+                                <Setter Property="Data" TargetName="arrow" Value="M 1,4.5  L 4.5,1  L 8,4.5"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="BorderStyle" TargetName="Bd" Value="ThinRaised"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="BorderStyle" TargetName="Bd" Value="ThinPressed"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ExpanderLeftHeaderStyle" TargetType="{x:Type ToggleButton}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+                        <Border Padding="{TemplateBinding Padding}">
+                            <Grid Background="Transparent" SnapsToDevicePixels="False">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="19"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Themes:ClassicBorderDecorator x:Name="Bd" BorderBrush="{x:Static Themes:ClassicBorderDecorator.ClassicBorderBrush}" BorderThickness="1" BorderStyle="None" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Height="19" SnapsToDevicePixels="true" Width="19">
+                                    <Path x:Name="arrow" Data="M 1,1.5 L 4.5,5 L 8,1.5" HorizontalAlignment="Center" SnapsToDevicePixels="false" Stroke="{TemplateBinding Foreground}" StrokeThickness="1.5" VerticalAlignment="Center">
+                                        <Path.LayoutTransform>
+                                            <RotateTransform Angle="90"/>
+                                        </Path.LayoutTransform>
+                                    </Path>
+                                </Themes:ClassicBorderDecorator>
+                                <ContentPresenter HorizontalAlignment="Center" Margin="0,4,0,0" Grid.Row="1" RecognizesAccessKey="True" SnapsToDevicePixels="True" VerticalAlignment="Top"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="true">
+                                <Setter Property="Data" TargetName="arrow" Value="M 1,4.5  L 4.5,1  L 8,4.5"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="BorderStyle" TargetName="Bd" Value="ThinRaised"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="BorderStyle" TargetName="Bd" Value="ThinPressed"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ExpanderHeaderFocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border>
+                            <Rectangle Margin="0" SnapsToDevicePixels="true" Stroke="Black" StrokeThickness="1" StrokeDashArray="1 2"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ExpanderDownHeaderStyle" TargetType="{x:Type ToggleButton}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+                        <Border Name="brd" BorderBrush="LightGray" Height="28" CornerRadius="3" BorderThickness="1">
+                            <ContentPresenter Grid.ColumnSpan="2"  HorizontalAlignment="Stretch"  RecognizesAccessKey="True" SnapsToDevicePixels="True" VerticalAlignment="Stretch"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="true">
+                                <Setter TargetName="brd" Property="Background" Value="Gray"></Setter>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="brd"  Property="Background" Value="LightGray"></Setter>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter TargetName="brd"  Property="Background" Value="DarkGray"></Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ExpanderStyle1" TargetType="{x:Type Expander}">
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Expander}">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="3" SnapsToDevicePixels="true" MaxHeight="150" Margin="0,0,-0.4,-116.6">
+                            <Grid Height="{TemplateBinding MaxHeight}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <Border Grid.Row="0" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" CornerRadius="3" BorderBrush="LightGray" Background="White" VerticalAlignment="Stretch">
+                                    <ToggleButton x:Name="HeaderSite" Height="{TemplateBinding Height}" ContentTemplate="{TemplateBinding HeaderTemplate}" ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}" Content="{TemplateBinding Header}"  Foreground="{TemplateBinding Foreground}" FontWeight="{TemplateBinding FontWeight}" FocusVisualStyle="{StaticResource ExpanderHeaderFocusVisual}" FontStyle="{TemplateBinding FontStyle}" FontStretch="{TemplateBinding FontStretch}" FontSize="{TemplateBinding FontSize}" FontFamily="{TemplateBinding FontFamily}" HorizontalContentAlignment="Center" IsChecked="{Binding IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" Margin="1,0,0,0" MinWidth="0" MinHeight="0" Padding="{TemplateBinding Padding}" Style="{StaticResource ExpanderDownHeaderStyle}" VerticalContentAlignment="Center" Background="#FFE1A01F"/>
+                                </Border>
+                                <ContentPresenter Grid.Row="1" x:Name="ExpandSite" Focusable="false" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="0,0,1,-110" Visibility="Collapsed" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsExpanded" Value="true">
+                                <Setter Property="Visibility" TargetName="ExpandSite" Value="Visible"/>
+                            </Trigger>
+                            <Trigger Property="ExpandDirection" Value="Right">
+                                <Setter Property="DockPanel.Dock" TargetName="ExpandSite" Value="Right"/>
+                                <Setter Property="DockPanel.Dock" TargetName="HeaderSite" Value="Left"/>
+                                <Setter Property="Style" TargetName="HeaderSite" Value="{StaticResource ExpanderRightHeaderStyle}"/>
+                            </Trigger>
+                            <Trigger Property="ExpandDirection" Value="Up">
+                                <Setter Property="DockPanel.Dock" TargetName="ExpandSite" Value="Top"/>
+                                <Setter Property="DockPanel.Dock" TargetName="HeaderSite" Value="Bottom"/>
+                                <Setter Property="Style" TargetName="HeaderSite" Value="{StaticResource ExpanderUpHeaderStyle}"/>
+                            </Trigger>
+                            <Trigger Property="ExpandDirection" Value="Left">
+                                <Setter Property="DockPanel.Dock" TargetName="ExpandSite" Value="Left"/>
+                                <Setter Property="DockPanel.Dock" TargetName="HeaderSite" Value="Right"/>
+                                <Setter Property="Style" TargetName="HeaderSite" Value="{StaticResource ExpanderLeftHeaderStyle}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="FtpSource" TargetType="{x:Type Border}">
             <Style.Setters>
-                <Setter Property="ShowGridLines" Value="False"></Setter>
+                <Setter Property="Visibility" Value="Collapsed"></Setter>
             </Style.Setters>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=FTPSource,Path=IsChecked}" Value="True">
+                    <Setter Property="Visibility" Value="Visible"></Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="FSSource" TargetType="{x:Type Border}">
+            <Style.Setters>
+                <Setter Property="Visibility" Value="Collapsed"></Setter>
+            </Style.Setters>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=FSSource,Path=IsChecked}" Value="True">
+                    <Setter Property="Visibility" Value="Visible"></Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="FtpTarget" TargetType="{x:Type Border}">
+            <Style.Setters>
+                <Setter Property="Visibility" Value="Collapsed"></Setter>
+            </Style.Setters>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=FTPTarget,Path=IsChecked}" Value="True">
+                    <Setter Property="Visibility" Value="Visible"></Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="FSTarget" TargetType="{x:Type Border}">
+            <Style.Setters>
+                <Setter Property="Visibility" Value="Collapsed"></Setter>
+            </Style.Setters>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=FSTarget,Path=IsChecked}" Value="True">
+                    <Setter Property="Visibility" Value="Visible"></Setter>
+                </DataTrigger>
+            </Style.Triggers>
         </Style>
     </Page.Resources>
     <Grid>
@@ -34,20 +261,44 @@
                 <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
             <Label Grid.ColumnSpan="2" Grid.Row="0" VerticalContentAlignment="Center" Content="Target folder"/>
-            <TextBox Grid.Column="0" Grid.Row="1" HorizontalAlignment="Stretch" Margin="5" TextWrapping="Wrap" Text="{Binding FolderPath}" />
-            <Button Visibility="Collapsed" Grid.Column="2" Grid.Row="1" Width="105" Margin="0,5,5,5" Height="auto" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="14" Padding="1" UseLayoutRounding="True" HorizontalAlignment="Right" Command="{Binding SelectDirectory}">Browse</Button>
-            <Expander IsExpanded="True" Margin="0,8,5,-86" Grid.Column="1" Grid.Row="1" FlowDirection="RightToLeft" VerticalContentAlignment="Stretch">
+            <TextBox Grid.Column="0" Grid.Row="1" BorderBrush="LightGray" HorizontalAlignment="Stretch" Margin="5" TextWrapping="Wrap" Text="{Binding FolderPath}" />
+            <Button Visibility="Collapsed" Grid.Column="2" Grid.Row="1" Width="105" Margin="0,5,5,5" Height="auto" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="14" Padding="1" UseLayoutRounding="True" HorizontalAlignment="Right" Command="{Binding SelectDirectory}" Content="Browse"/>
+            <Expander IsExpanded="True"  Margin="0,5,5,5" Width="105"  Grid.Column="1" Grid.Row="1" FlowDirection="RightToLeft" VerticalContentAlignment="Stretch" Style="{DynamicResource ExpanderStyle1}" Background="{x:Null}">
                 <Expander.Header>
-                    Path
-                </Expander.Header>
+                    <Label VerticalContentAlignment="Center" HorizontalContentAlignment="Center">Browse</Label></Expander.Header>
                 <Border Height="auto" CornerRadius="3" Margin="0,10,-138,0" Background="White" BorderBrush="LightGray" BorderThickness="1" FlowDirection="LeftToRight" VerticalAlignment="Top">
                     <Grid Margin="5">
                         <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-                        <RadioButton Grid.Row="0">File System</RadioButton>
-                        <RadioButton Margin="0,5,0,0" Grid.Row="1">FTP</RadioButton>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="160"/>
+                        </Grid.RowDefinitions>                       
+                        <RadioButton IsChecked="True" x:Name="FSSource" Grid.Row="0" Content="File System"/>
+                        <RadioButton x:Name="FTPSource" Margin="0,5,0,0" Grid.Row="1" Content="FTP"/>
+                        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+                            <StackPanel>
+                                <Border x:Name="FtpPanel" Style="{StaticResource FtpSource}">
+                                    <StackPanel>
+                                        <Label  FontSize="16">Uri</Label>
+                                        <TextBox BorderBrush="LightGray" Height="30" Margin="0,5,0,0" VerticalContentAlignment="Center" FontSize="16"></TextBox>
+                                        <Label FontSize="16">User name</Label>
+                                        <TextBox BorderBrush="LightGray" Height="30" Margin="0,5,0,0" VerticalContentAlignment="Center" FontSize="16"></TextBox>
+                                        <Label FontSize="16">Password</Label>
+                                        <TextBox BorderBrush="LightGray" Height="30" Margin="0,5,0,0" VerticalContentAlignment="Center" FontSize="16"></TextBox>
+                                        <Button s:Navigation.Attach="True" s:Navigation.Uri="Views/FtpViewer/ftpViewer.xaml" Command="{Binding CreateConnection}"  Height="30" Margin="0,5,0,0" FontSize="18">Connect</Button>
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
+                        </ScrollViewer>
+                        <ScrollViewer Grid.Row="2" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" VerticalScrollBarVisibility="Auto">
+                            <StackPanel>
+                                <Border x:Name="FsPanel" Style="{StaticResource FSSource}">
+                                    <StackPanel>
+                                        <Button Command="{Binding SelectDirectory}"  Height="30" Margin="0,5,0,0" >Browse</Button>
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
+                        </ScrollViewer>
                     </Grid>
                 </Border>
             </Expander>
@@ -63,20 +314,18 @@
                 <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
             <Label Grid.ColumnSpan="2" Grid.Row="0" VerticalContentAlignment="Center" Content="Target folder"/>
-            <TextBox Grid.Column="0" Grid.Row="1" HorizontalAlignment="Stretch" Margin="5" TextWrapping="Wrap" Text="{Binding FolderPath}" />
-            <Button Visibility="Collapsed" Grid.Column="2" Grid.Row="1" Width="105" Margin="0,5,5,5" Height="auto" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="14" Padding="1" UseLayoutRounding="True" HorizontalAlignment="Right" Command="{Binding SelectDirectory}">Browse</Button>
+            <TextBox Grid.Column="0" Grid.Row="1" BorderBrush="LightGray" HorizontalAlignment="Stretch" Margin="5" TextWrapping="Wrap" Text="{Binding FolderPath}" />
+            <Button Visibility="Collapsed" Grid.Column="2" Grid.Row="1" Width="105" Margin="0,5,5,5" Height="auto" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="14" Padding="1" UseLayoutRounding="True" HorizontalAlignment="Right" Command="{Binding SelectDirectory}" Content="Browse"/>
             <Expander IsExpanded="True" Margin="0,5,5,-86" Grid.Column="1" Grid.Row="1" FlowDirection="RightToLeft" VerticalContentAlignment="Stretch">
-                <Expander.Header>
-                    Path
-                </Expander.Header>
+                <Expander.Header>Path</Expander.Header>
                 <Border Height="auto" CornerRadius="3" Margin="0,13,-138,0" Background="White" BorderBrush="LightGray" BorderThickness="1" FlowDirection="LeftToRight" VerticalAlignment="Top">
                     <Grid Margin="5">
                         <Grid.RowDefinitions>
                             <RowDefinition/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <RadioButton Grid.Row="0">File System</RadioButton>
-                        <RadioButton Margin="0,5,0,0" Grid.Row="1">FTP</RadioButton>
+                        <RadioButton Grid.Row="0" Content="File System"/>
+                        <RadioButton Margin="0,5,0,0" Grid.Row="1" Content="FTP"/>
                     </Grid>
                 </Border>
             </Expander>
