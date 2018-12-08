@@ -9,9 +9,10 @@ using System.IO;
 
 namespace Work1.ViewModels
 {
-    class FileSystemViewModel:ViewModel
+    class FileSystemViewModel : ViewModel
     {
-        public string FolderPath { get; set; }
+        public string SourceFolderPath { get; set; }
+        public string TargetFolderPath { get; set; }
         private static long GetDirectorySize(string folderPath)
         {
             DirectoryInfo di = new DirectoryInfo(folderPath);
@@ -22,13 +23,34 @@ namespace Work1.ViewModels
         {
             get
             {
-                return selectDirectory ?? (selectDirectory=new Command(obj=> {
-                    FolderBrowserDialog dialog=new FolderBrowserDialog();
-                    if(dialog.ShowDialog()==DialogResult.OK)
+                return selectDirectory ?? (selectDirectory = new Command(obj =>
+                {
+                    string folder = obj as string;
+                    FolderBrowserDialog dialog = new FolderBrowserDialog();
+
+                    if (folder.Equals("source"))
                     {
-                        FolderPath = dialog.SelectedPath;
+                        if (dialog.ShowDialog() == DialogResult.OK)
+                            SourceFolderPath = dialog.SelectedPath;
                     }
-                    MessageBox.Show((GetDirectorySize(FolderPath)/1000).ToString());
+                    else if (folder.Equals("target"))
+                    {
+                        if (dialog.ShowDialog() == DialogResult.OK)
+                            TargetFolderPath = dialog.SelectedPath;
+                    }
+                }));
+            }
+        }
+
+
+        private Command selectFtpDerectory;
+        public Command SelectFtpDerectory
+        {
+            get
+            {
+                return selectFtpDerectory ?? (selectFtpDerectory = new Command(obj =>
+                {
+                    ViewModel.Get<FtpViewModel>().Connect();
                 }));
             }
         }

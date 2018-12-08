@@ -97,12 +97,12 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <ListBox Width="200" x:Name="Menu" s:CloseMenu.Menu="True" Background="#626f80" MinWidth="0" MaxWidth="200" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
-                <ListBoxItem IsSelected="True" s:MasterPage.MenuItem="True" s:MasterPage.MenuItemSource="Views/FileSystemViewer/FileSystemViewer.xaml"   Content="Add repository" Foreground="White" FontSize="14"/>
+                <ListBoxItem IsSelected="True" s:MasterPage.MenuItem="True" s:MasterPage.MenuItemSource="Views/CreateRepository/Create.xaml"   Content="Add repository" Foreground="White" FontSize="14"/>
                 <ListBoxItem s:MasterPage.MenuItem="True" s:MasterPage.MenuItemSource="Views/Repositories/Repositories.xaml" Content="Repositories" Background="{x:Null}" Foreground="White" FontSize="14"/>
                 <!--<ListBoxItem  Content="Tasks" Background="{x:Null}" Foreground="White" FontSize="14"/>
                 <ListBoxItem  Content="Tagging" Background="{x:Null}" Foreground="White" FontSize="14"/>-->
             </ListBox>
-            <Frame Grid.Column="1" Margin="10"  s:MasterPage.MenuItemTarget="True" NavigationUIVisibility="Hidden" Source="/Work1;component/Views/FileSystemViewer/FileSystemViewer.xaml"/>
+            <Frame Grid.Column="1" Margin="10"  s:MasterPage.MenuItemTarget="True" NavigationUIVisibility="Hidden" Source="/Work1;component/Views/CreateRepository/Create.xaml"/>
         </Grid>
     </Grid>
 </Page>

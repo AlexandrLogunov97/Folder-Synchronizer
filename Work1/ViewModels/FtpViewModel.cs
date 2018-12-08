@@ -29,7 +29,7 @@ namespace Work1.ViewModels
                 return showSelected ?? (showSelected = new Command(obj =>
                 {
                     
-                    MessageBox.Show(SelectedDirectory.ToString());
+                    MessageBox.Show(SelectedDirectory.FileSize.ToString());
                 }));
             }
         }
@@ -60,6 +60,23 @@ namespace Work1.ViewModels
                 }));
             }
         }
+        public bool Connect()
+        {
+            try
+            {
+                ftpClient = new FtpClient(FtpUri, "", "");
+                sourceDerictories = FtpClient.LoadDerictory(FtpUri, "", "");
+                Derictories = new ObservableCollection<FileDirectoryInfo>(sourceDerictories);
+                CreateConnection.CanCantinue = true;
+                return true;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error of ftp server", "Error");
+                CreateConnection.CanCantinue = false;
+                return false;
+            }
+        }
         private NavigationCommand createConnection;
         public NavigationCommand CreateConnection
         {
@@ -67,18 +84,20 @@ namespace Work1.ViewModels
             {
                 return createConnection ?? (createConnection = new NavigationCommand(obj =>
                 {
-                    try
-                    {
-                        ftpClient = new FtpClient(FtpUri, "", "");
-                        sourceDerictories = FtpClient.LoadDerictory(FtpUri, "", "");
-                        Derictories = new ObservableCollection<FileDirectoryInfo>(sourceDerictories);
-                    }
-                    catch (Exception)
-                    {
-                        MessageBox.Show("Error of ftp server", "Error");
-                        return;
-                    }
-                    CreateConnection.CanCantinue = true;
+                    Connect();
+                    MessageBox.Show("");
+                    //try
+                    //{
+                    //    ftpClient = new FtpClient(FtpUri, "", "");
+                    //    sourceDerictories = FtpClient.LoadDerictory(FtpUri, "", "");
+                    //    Derictories = new ObservableCollection<FileDirectoryInfo>(sourceDerictories);
+                    //}
+                    //catch (Exception)
+                    //{
+                    //    MessageBox.Show("Error of ftp server", "Error");
+                    //    return;
+                    //}
+                    //CreateConnection.CanCantinue = true;
                 },
                 obj =>
                 {
@@ -103,7 +122,7 @@ namespace Work1.ViewModels
         }
         public FtpViewModel()
         {
-            FtpUri = "ftp://192.168.1.100:3721/";
+            FtpUri = "ftp://192.168.1.34:3721/";
         }
     }
 }

@@ -61,6 +61,13 @@
                 <Label Grid.Column="1"></Label>
             </Grid>
         </DataTemplate>
+        <Style x:Key="Unenabled" TargetType="{x:Type TextBox}">
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="false">
+                    <Setter Property="Background" Value="LightGray"></Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Page.Resources>
     <Grid Background="White">
         <Grid.ColumnDefinitions>
@@ -76,6 +83,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
                     <RowDefinition/>
+                    <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
                 <Border Grid.Row="0" BorderBrush="{Binding ElementName=DerictorySearch,Path=BorderBrush}" BorderThickness="0,0,0,1">
                     <Grid>
@@ -101,7 +109,7 @@
                         <Image Height="30" Width="30" Grid.Column="1"  Source="/Work1;component/Content/Images/search.png" ></Image>
                     </Grid>
                 </Border>
-                <ListBox Grid.Row="1" Grid.RowSpan="2" SelectedItem="{Binding SelectedDirectory}" ItemTemplate="{StaticResource listTemplate}" x:Name="folders" Background="White" Foreground="Black" ItemsSource="{Binding Derictories}"  FontSize="16">
+                <ListBox Grid.Row="1" SelectedItem="{Binding SelectedDirectory}" ItemTemplate="{StaticResource listTemplate}" x:Name="folders" Background="White" Foreground="Black" ItemsSource="{Binding Derictories}"  FontSize="16">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseDoubleClick">
                             <i:InvokeCommandAction
@@ -109,17 +117,61 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </ListBox>
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button s:Navigation.Uri="Views/FtpViewer/CreateDerectory.xaml" Height="30" Margin="5,5,5,5" Grid.Column="0" Width="30">
+                        <Image Source="/Work1;component/Content/Images/AddDirectory.png"></Image>
+                    </Button>
+                    <Button Height="30" Margin="0,5,5,5" Grid.Column="1" Width="30">
+                        <Image Source="/Work1;component/Content/Images/DeleteDerectory.png"></Image>
+                    </Button>
+                    <Button Height="30" Margin="0,5,5,5" Grid.Column="2" Width="30">
+                        <Image Source="/Work1;component/Content/Images/renameDerectory.png"></Image>
+                    </Button>
+                </Grid>
             </Grid>
         </Border>
         <Grid Grid.Column="1" Grid.RowSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition/>
+                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-            <TextBox Grid.Row="0" x:Name="query" Margin="5,5,5,370" Text="{Binding SelectedDirectory.Name}" Grid.RowSpan="2">
-            </TextBox>
-            <Button Content="Button" HorizontalAlignment="Left"  IsEnabled="False" Margin="95,150,0,0" Command="{Binding ShowSelected}" Grid.Row="1" VerticalAlignment="Top" Width="75"/>
-            <TextBlock HorizontalAlignment="Left" Margin="10,95,0,0" Grid.Row="1" Text="{Binding SearchQuery}" TextWrapping="Wrap"  VerticalAlignment="Top" Width="380"/>
+            <TextBox Grid.Row="0" x:Name="query"  Margin="5" Text="{Binding SelectedDirectory.Adress}" Height="30" VerticalContentAlignment="Center"></TextBox>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Border Grid.Column="0">
+                    <GridSplitter HorizontalAlignment="Stretch"/>
+                </Border>
+                <ScrollViewer Grid.Column="2" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <Label>Name</Label>
+                        <TextBox Height="30" Margin="0,0,5,0" Text="{Binding SelectedDirectory.Name}" IsEnabled="False" VerticalAlignment="Center"></TextBox>
+                        <Label>Size</Label>
+                        <TextBox Height="30" Margin="0,0,5,0" Text="{Binding SelectedDirectory.FileSize}" IsEnabled="False" VerticalAlignment="Center"></TextBox>
+                        <Label>Date</Label>
+                        <TextBox Height="30" Margin="0,0,5,0" Text="{Binding SelectedDirectory.Date}" IsEnabled="False" VerticalContentAlignment="Center"></TextBox>
+                        <Label>Description</Label>
+                        <TextBox Height="116" Margin="0,0,5,0" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button s:Navigation.IsGoBack="True" Grid.Column="0" Margin="5" Height="30">Cancel</Button>
+                <Button Grid.Column="2" Margin="5" Height="30" Command="{Binding ShowSelected}">Select</Button>
+            </Grid>
         </Grid>
         <!--<TextBox x:Name="fle"  HorizontalAlignment="Left" Height="250" Margin="10,10,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="580"/>-->
     </Grid>
