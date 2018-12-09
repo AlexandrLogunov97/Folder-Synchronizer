@@ -60,6 +60,19 @@ namespace Work1.ViewModels
                 }));
             }
         }
+        private Command select;
+        public Command Select
+        {
+            get
+            {
+                return select ?? (select = new Command(obj =>
+                {
+                    ViewModel.Get<SelectDerectoryViewModel>().SetSelectedPath(SelectedDirectory.Adress);
+                },obj=> {
+                    return SelectedDirectory!=null && SelectedDirectory?.Type==DirectoryType.Folder;
+                }));
+            }
+        }
         public bool Connect()
         {
             try

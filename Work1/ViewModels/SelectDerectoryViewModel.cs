@@ -9,10 +9,11 @@ using System.IO;
 
 namespace Work1.ViewModels
 {
-    class FileSystemViewModel : ViewModel
+    class SelectDerectoryViewModel : ViewModel
     {
         public string SourceFolderPath { get; set; }
         public string TargetFolderPath { get; set; }
+        private string type { get; set; }
         private static long GetDirectorySize(string folderPath)
         {
             DirectoryInfo di = new DirectoryInfo(folderPath);
@@ -31,12 +32,18 @@ namespace Work1.ViewModels
                     if (folder.Equals("source"))
                     {
                         if (dialog.ShowDialog() == DialogResult.OK)
+                        {
                             SourceFolderPath = dialog.SelectedPath;
+                            type = "source";
+                        }
                     }
                     else if (folder.Equals("target"))
                     {
                         if (dialog.ShowDialog() == DialogResult.OK)
+                        {
                             TargetFolderPath = dialog.SelectedPath;
+                            type = "target";
+                        }
                     }
                 }));
             }
@@ -50,11 +57,36 @@ namespace Work1.ViewModels
             {
                 return selectFtpDerectory ?? (selectFtpDerectory = new Command(obj =>
                 {
+                    string folder = obj as string;
                     ViewModel.Get<FtpViewModel>().Connect();
+                    if (folder.Equals("source"))
+                    {
+                        type = "source";
+                    }
+                    else if (folder.Equals("target"))
+                    {
+                        type = "target";
+                    }
                 }));
             }
         }
-        public FileSystemViewModel()
+        public void SetSelectedPath(string path)
+        {
+            switch (type)
+            {
+                case "source":
+                    {
+                        SourceFolderPath = path;
+                        break;
+                    }
+                case "target":
+                    {
+                        TargetFolderPath = path;
+                        break;
+                    }
+            }
+        }
+        public SelectDerectoryViewModel()
         {
 
         }

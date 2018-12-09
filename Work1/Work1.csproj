@@ -68,7 +68,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ViewModels\FileSystemViewModel.cs" />
+    <Compile Include="ViewModels\SelectDerectoryViewModel.cs" />
     <Compile Include="ViewModels\FtpViewModel.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>

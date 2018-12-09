@@ -25,7 +25,7 @@ namespace Work1.Views.CreateRepository
         public Create()
         {
             InitializeComponent();
-            this.DataContext = ViewModel.Get<FileSystemViewModel>();
+            this.DataContext = ViewModel.Get<SelectDerectoryViewModel>();
         }
     }
 }

@@ -130,7 +130,7 @@
                     <Button Height="30" Margin="0,5,5,5" Grid.Column="1" Width="30">
                         <Image Source="/Work1;component/Content/Images/DeleteDerectory.png"></Image>
                     </Button>
-                    <Button Height="30" Margin="0,5,5,5" Grid.Column="2" Width="30">
+                    <Button s:Navigation.Uri="Views/FtpViewer/RenameDerectory.xaml" Height="30" Margin="0,5,5,5" Grid.Column="2" Width="30">
                         <Image Source="/Work1;component/Content/Images/renameDerectory.png"></Image>
                     </Button>
                 </Grid>
@@ -142,24 +142,22 @@
                 <RowDefinition/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-            <TextBox Grid.Row="0" x:Name="query"  Margin="5" Text="{Binding SelectedDirectory.Adress}" Height="30" VerticalContentAlignment="Center"></TextBox>
+            <TextBox Grid.Row="0" x:Name="query"  Margin="5" Text="{Binding SelectedDirectory.Adress}" Height="30" VerticalContentAlignment="Center" IsEnabled="False"></TextBox>
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Border Grid.Column="0">
-                    <GridSplitter HorizontalAlignment="Stretch"/>
-                </Border>
-                <ScrollViewer Grid.Column="2" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" VerticalScrollBarVisibility="Auto">
+                
+                <ScrollViewer Grid.Column="0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" VerticalScrollBarVisibility="Auto">
                     <StackPanel>
                         <Label>Name</Label>
-                        <TextBox Height="30" Margin="0,0,5,0" Text="{Binding SelectedDirectory.Name}" IsEnabled="False" VerticalAlignment="Center"></TextBox>
+                        <TextBox Height="30" Margin="5,0,5,0" Text="{Binding SelectedDirectory.Name}" IsEnabled="False" VerticalAlignment="Center"></TextBox>
                         <Label>Size</Label>
-                        <TextBox Height="30" Margin="0,0,5,0" Text="{Binding SelectedDirectory.FileSize}" IsEnabled="False" VerticalAlignment="Center"></TextBox>
+                        <TextBox Height="30" Margin="5,0,5,0" Text="{Binding SelectedDirectory.FileSize}" IsEnabled="False" VerticalAlignment="Center"></TextBox>
                         <Label>Date</Label>
-                        <TextBox Height="30" Margin="0,0,5,0" Text="{Binding SelectedDirectory.Date}" IsEnabled="False" VerticalContentAlignment="Center"></TextBox>
+                        <TextBox Height="30" Margin="5,0,5,0" Text="{Binding SelectedDirectory.Date}" IsEnabled="False" VerticalContentAlignment="Center"></TextBox>
                         <Label>Description</Label>
-                        <TextBox Height="116" Margin="0,0,5,0" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>
+                        <TextBox Height="116" Margin="5,0,5,0" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>
                     </StackPanel>
                 </ScrollViewer>
             </Grid>
@@ -170,7 +168,7 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Button s:Navigation.IsGoBack="True" Grid.Column="0" Margin="5" Height="30">Cancel</Button>
-                <Button Grid.Column="2" Margin="5" Height="30" Command="{Binding ShowSelected}">Select</Button>
+                <Button s:Navigation.IsGoBack="True" Grid.Column="2" Margin="5" Height="30" Command="{Binding Select}">Select</Button>
             </Grid>
         </Grid>
         <!--<TextBox x:Name="fle"  HorizontalAlignment="Left" Height="250" Margin="10,10,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="580"/>-->

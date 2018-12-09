@@ -282,7 +282,7 @@ namespace Work1.Utils
                                                              // Размер задаем только для файлов, т.к. для папок возвращается
                                                              // размер ярлыка 4кб, а не самой папки
                                                              string size = "";
-                                                         if (type == DirectoryType.File)
+                                                         //if (type == DirectoryType.File)
                                                              size = (Int32.Parse(match.Groups[3].Value.Trim()) / 1024).ToString() + " кБ";
 
                                                          return new FileDirectoryInfo(size, type, match.Groups[6].Value, match.Groups[4].Value, uri) { Icon = icon };

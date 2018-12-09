@@ -25,7 +25,7 @@ namespace Work1.Views.CreateRepository
         public SelectTypeConnection()
         {
             InitializeComponent();
-            this.FSPanel.DataContext= ViewModel.Get<FileSystemViewModel>();
+            this.FSPanel.DataContext= ViewModel.Get<SelectDerectoryViewModel>();
             this.FtpPanel.DataContext = ViewModel.Get<FtpViewModel>();
         }
     }

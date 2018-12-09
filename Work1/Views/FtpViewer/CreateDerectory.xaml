@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Work1.Views.FtpViewer"
+      xmlns:s="clr-namespace:S;assembly=S"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="CreateDerectory" Background="White">
@@ -12,6 +13,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Border Grid.Row="0" BorderThickness="0,0,0,1" BorderBrush="LightGray">
             <Label >Create derectory</Label>
@@ -19,8 +21,17 @@
         <ScrollViewer Grid.Row="1" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalScrollBarVisibility="Auto">
             <StackPanel>
                 <Label>Name</Label>
-                <TextBox Margin="5,0,5,5" Height="30"></TextBox>
+                <TextBox Margin="5,0,5,5" Height="30" VerticalContentAlignment="Center"></TextBox>
             </StackPanel>
         </ScrollViewer>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" s:Navigation.IsGoBack="True" Width="100" Height="30" Margin="5">Cancel</Button>
+            <Button Grid.Column="2" s:Navigation.IsGoBack="True" Width="100" Height="30" Margin="5" Command="{Binding Create}">Create</Button>
+        </Grid>
     </Grid>
 </Page>
