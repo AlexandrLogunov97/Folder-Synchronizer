@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 E:\Projects\CSharp\Works\Folder-Synchronizer\Work1\App.xaml
-8911143520
+92062691645
 
 201008586912
 19-836431011
-Views\CreateRepository\Create.xaml;Views\CreateRepository\SelectTypeConnection.xaml;Views\FileSystemViewer\FileSystemViewer.xaml;Views\FtpViewer\CreateDerectory.xaml;Views\FtpViewer\FtpViewer.xaml;Views\FtpViewer\RenameDerectory.xaml;Views\Main\MasterPage.xaml;Views\Repositories\Repositories.xaml;
+MainWindow.xaml;Views\CreateRepository\Create.xaml;Views\CreateRepository\SelectTypeConnection.xaml;Views\FileSystemViewer\FileSystemViewer.xaml;Views\FtpViewer\CreateDerectory.xaml;Views\FtpViewer\FtpViewer.xaml;Views\FtpViewer\RenameDerectory.xaml;Views\Main\MasterPage.xaml;Views\Repositories\Repositories.xaml;
 
-True
+False
 

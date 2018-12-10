@@ -100,6 +100,10 @@
     <Compile Include="Views\Repositories\Repositories.xaml.cs">
       <DependentUpon>Repositories.xaml</DependentUpon>
     </Compile>
+    <Page Include="MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\CreateRepository\Create.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

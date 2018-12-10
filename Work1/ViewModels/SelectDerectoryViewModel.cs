@@ -67,6 +67,7 @@ namespace Work1.ViewModels
                     {
                         type = "target";
                     }
+
                 }));
             }
         }

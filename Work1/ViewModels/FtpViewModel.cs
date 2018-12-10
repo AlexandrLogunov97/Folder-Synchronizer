@@ -14,6 +14,7 @@ namespace Work1.ViewModels
     {
         public string FtpUri { get; set; }
         public string PrevAdress { get; set; }
+        public string NewDirectory { get; set; } = "new directory";
         public FileDirectoryInfo SelectedDirectory { get; set; }
         
         string preveousDirectory { get; set; }
@@ -78,6 +79,7 @@ namespace Work1.ViewModels
             try
             {
                 ftpClient = new FtpClient(FtpUri, "", "");
+
                 sourceDerictories = FtpClient.LoadDerictory(FtpUri, "", "");
                 Derictories = new ObservableCollection<FileDirectoryInfo>(sourceDerictories);
                 CreateConnection.CanCantinue = true;
@@ -90,6 +92,22 @@ namespace Work1.ViewModels
                 return false;
             }
         }
+        private NavigationCommand create;
+        public NavigationCommand Create
+        {
+            get
+            {
+                return create ?? (create = new NavigationCommand(obj =>
+                {
+                    //ftpClient = new FtpClient(FtpUri, "", "");
+                    MessageBox.Show(ftpClient.MakeDirectory(NewDirectory));
+                },
+                obj =>
+                {
+                    return !string.IsNullOrEmpty(this.FtpUri);
+                }));
+            }
+        }
         private NavigationCommand createConnection;
         public NavigationCommand CreateConnection
         {
@@ -98,7 +116,6 @@ namespace Work1.ViewModels
                 return createConnection ?? (createConnection = new NavigationCommand(obj =>
                 {
                     Connect();
-                    MessageBox.Show("");
                     //try
                     //{
                     //    ftpClient = new FtpClient(FtpUri, "", "");

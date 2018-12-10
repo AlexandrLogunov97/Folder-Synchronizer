@@ -276,6 +276,7 @@ namespace Work1.Utils
                                                      Match match = regex.Match(s);
                                                      if (match.Length > 5)
                                                      {
+
                                                          // Устанавливаем тип, чтобы отличить файл от папки (используется также для установки рисунка)
                                                          DirectoryType type = match.Groups[1].Value == "d" ? DirectoryType.Folder : DirectoryType.File;
                                                          Uri icon = type == DirectoryType.Folder ? new Uri("/Content/Images/folder.png", UriKind.RelativeOrAbsolute) : new Uri("/Content/Images/file.png", UriKind.RelativeOrAbsolute);
@@ -294,7 +295,7 @@ namespace Work1.Utils
             list.Add(new FileDirectoryInfo("", DirectoryType.Back, "...", "", uri) { Icon = new Uri("/Content/Images/back.png", UriKind.RelativeOrAbsolute) });
             list.Reverse();
             list = list.OrderByDescending(x => x.Type).ToList();
-            return list;
+            return list ?? null;
 
             //MessageBox.Show(ex.ToString() + ": \n" + ex.Message);
             //return new List<FileDirectoryInfo>();

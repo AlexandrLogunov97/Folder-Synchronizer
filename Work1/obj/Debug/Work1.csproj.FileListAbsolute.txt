@@ -92,3 +92,5 @@ E:\Projects\CSharp\Works\Folder-Synchronizer\Work1\obj\Debug\Views\FtpViewer\Cre
 E:\Projects\CSharp\Works\Folder-Synchronizer\Work1\obj\Debug\Views\FtpViewer\RenameDerectory.g.cs
 E:\Projects\CSharp\Works\Folder-Synchronizer\Work1\obj\Debug\Views\FtpViewer\CreateDerectory.baml
 E:\Projects\CSharp\Works\Folder-Synchronizer\Work1\obj\Debug\Views\FtpViewer\RenameDerectory.baml
+E:\Projects\CSharp\Works\Folder-Synchronizer\Work1\obj\Debug\MainWindow.g.cs
+E:\Projects\CSharp\Works\Folder-Synchronizer\Work1\obj\Debug\MainWindow.baml

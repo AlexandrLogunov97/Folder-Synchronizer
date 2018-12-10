@@ -25,7 +25,7 @@ namespace Work1.Views.FtpViewer
         public CreateDerectory()
         {
             InitializeComponent();
-            this.DataContext = ViewModel.Get<FtpViewer>();
+            this.DataContext = ViewModel.Get<FtpViewModel>();
         }
     }
 }
