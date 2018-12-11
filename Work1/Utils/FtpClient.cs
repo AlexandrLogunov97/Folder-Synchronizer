@@ -16,6 +16,7 @@ namespace Work1.Utils
         Folder=2,
         Back=3
     }
+    
     class FtpClient
     {
         private string password;
@@ -292,7 +293,7 @@ namespace Work1.Utils
                                                  }).ToList();
 
             // Добавить поле, которое будет возвращать пользователя на директорию выше
-            list.Add(new FileDirectoryInfo("", DirectoryType.Back, "...", "", uri) { Icon = new Uri("/Content/Images/back.png", UriKind.RelativeOrAbsolute) });
+            list.Add(new FileDirectoryInfo("", DirectoryType.Back, "", "", uri) { Icon = new Uri("/Content/Images/back.png", UriKind.RelativeOrAbsolute) });
             list.Reverse();
             list = list.OrderByDescending(x => x.Type).ToList();
             return list ?? null;
