@@ -123,6 +123,7 @@
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition/>
+                        <ColumnDefinition Width="auto"/>
                     </Grid.ColumnDefinitions>
                     <Button s:Navigation.Uri="Views/FtpViewer/CreateDerectory.xaml" Height="30" Margin="5,5,5,5" Grid.Column="0" Width="30">
                         <Image Source="/Work1;component/Content/Images/AddDirectory.png"></Image>
@@ -130,8 +131,11 @@
                     <Button Height="30" Margin="0,5,5,5" Grid.Column="1" Width="30">
                         <Image Source="/Work1;component/Content/Images/DeleteDerectory.png"></Image>
                     </Button>
-                    <Button s:Navigation.Uri="Views/FtpViewer/RenameDerectory.xaml" Height="30" Margin="0,5,5,5" Grid.Column="2" Width="30">
+                    <Button s:Navigation.Uri="Views/FtpViewer/RenameDerectory.xaml" Command="{Binding SelectRenamedDerectory}" Height="30" Margin="0,5,5,5" Grid.Column="2" Width="30">
                         <Image Source="/Work1;component/Content/Images/renameDerectory.png"></Image>
+                    </Button>
+                    <Button  Command="{Binding Refresh}" Height="30" Margin="0,5,5,5" Grid.Column="4" Width="30">
+                        <Image Source="/Work1;component/Content/Images/refresh.png"></Image>
                     </Button>
                 </Grid>
             </Grid>
@@ -142,7 +146,7 @@
                 <RowDefinition/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-            <TextBox Grid.Row="0" x:Name="query"  Margin="5" Text="{Binding SelectedDirectory.Adress}" Height="30" VerticalContentAlignment="Center" IsEnabled="False"></TextBox>
+            <TextBox Grid.Row="0" x:Name="query"  Margin="5" Text="{Binding SelectedDirectory.Adress}" Height="30" VerticalContentAlignment="Center" IsReadOnly="True"></TextBox>
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -151,7 +155,7 @@
                 <ScrollViewer Grid.Column="0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" VerticalScrollBarVisibility="Auto">
                     <StackPanel>
                         <Label>Name</Label>
-                        <TextBox Height="30" Margin="5,0,5,0" Text="{Binding SelectedDirectory.Name}" IsEnabled="False" VerticalAlignment="Center"></TextBox>
+                        <TextBox Height="30" Margin="5,0,5,0" Text="{Binding SelectedDirectory.DisplayName}" IsEnabled="False" VerticalAlignment="Center"></TextBox>
                         <Label>Size</Label>
                         <TextBox Height="30" Margin="5,0,5,0" Text="{Binding SelectedDirectory.FileSize}" IsEnabled="False" VerticalAlignment="Center"></TextBox>
                         <Label>Date</Label>

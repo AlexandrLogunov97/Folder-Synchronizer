@@ -8,43 +8,14 @@ namespace Work1.Utils
 {
     class FileDirectoryInfo
     {
-        string fileSize;
-        string type;
-        string name;
-        string date;
-        string adress;
-        public string Adress
-        {
-            get
-            {
-                return adress;
-            }
-            set
-            {
-                adress = String.Format("{0}{1}/",value,name);
-            }
-        }
-        public Uri Icon { get; set; }
-
-        public string FileSize
-        {
-            get { return fileSize; }
-            set { fileSize = value; }
-        }
-
+        public string FileSize { get; set; }
+        public string Name { get;}
+        public string DisplayName { get; set; }
+        public string Date { get; set; }
         public DirectoryType Type { get; set; }
-
-        public string Name
-        {
-            get { return name; }
-            set { name = value; }
-        }
-
-        public string Date
-        {
-            get { return date; }
-            set { date = value; }
-        }
+        private string adress;
+        public string Adress { get; set; }
+        public Uri Icon { get; set; }
 
         public FileDirectoryInfo() { }
 
@@ -54,6 +25,16 @@ namespace Work1.Utils
             Type = type;
             Name = name;
             Date = date;
+            DisplayName = Name;
+            this.Adress = adress;
+        }
+        public FileDirectoryInfo(string fileSize, DirectoryType type, string name, string date, string adress, string displayName)
+        {
+            FileSize = fileSize;
+            Type = type;
+            Name = name;
+            Date = date;
+            DisplayName = displayName;
             this.Adress = adress;
         }
         public override string ToString()

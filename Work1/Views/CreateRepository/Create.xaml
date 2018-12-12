@@ -127,7 +127,7 @@
             <RowDefinition Height="auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Grid Grid.Column="0" Grid.Row="0">
+        <Grid Panel.ZIndex="1" Grid.Column="0" Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition Width="auto"/>
@@ -138,10 +138,10 @@
                 <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
             <Label Grid.ColumnSpan="2" Grid.Row="0" VerticalContentAlignment="Center" Content="Target folder"/>
-            <TextBox Grid.Column="0" Grid.Row="1" IsEnabled="False" BorderBrush="LightGray" HorizontalAlignment="Stretch" Margin="5" TextWrapping="Wrap" Text="{Binding SourceFolderPath}" VerticalContentAlignment="Center" />
+            <TextBox Grid.Column="0" Grid.Row="1" IsReadOnly="True" VerticalScrollBarVisibility="Auto" BorderBrush="LightGray" HorizontalAlignment="Stretch" Margin="5" TextWrapping="Wrap" Text="{Binding SourceFolderPath}" VerticalContentAlignment="Center" />
             <Button Visibility="Collapsed" Grid.Column="2" Grid.Row="1" Width="105" Margin="0,5,5,5" Height="auto" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="14" Padding="1" UseLayoutRounding="True" HorizontalAlignment="Right" Command="{Binding SelectDirectory}" Content="Browse"/>
             <ToggleButton x:Name="SourceBrowse" Grid.Column="2" Margin="0,5,5,5" Grid.Row="1">Browse</ToggleButton>
-            <Border Height="auto" Grid.Row="1" Style="{StaticResource SourcePanel}" CornerRadius="3" Background="White" BorderBrush="LightGray" BorderThickness="1" FlowDirection="LeftToRight" Width="198" Grid.ColumnSpan="3" HorizontalAlignment="Right" VerticalAlignment="Top">
+            <Border Height="auto" Grid.Row="1" Panel.ZIndex="1" Style="{StaticResource SourcePanel}" CornerRadius="3" Background="White" BorderBrush="LightGray" BorderThickness="1" FlowDirection="LeftToRight" Width="198" Grid.ColumnSpan="3" HorizontalAlignment="Right" VerticalAlignment="Top">
                 <Grid Margin="5">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
@@ -154,7 +154,7 @@
                         <StackPanel>
                             <Border x:Name="FsPanel" >
                                 <StackPanel>
-                                    <Button Command="{Binding SelectDirectory}" CommandParameter="source"  Height="30" Margin="0,5,0,0" >Browse</Button>
+                                    <Button Command="{Binding SelectSourceDirectory}" CommandParameter="source"  Height="30" Margin="0,5,0,0" >Browse</Button>
                                 </StackPanel>
                             </Border>
                         </StackPanel>
@@ -163,13 +163,13 @@
                         <StackPanel>
                             <Border x:Name="FtpPanel" >
                                 <StackPanel>
-                                    <Label  FontSize="16">Uri</Label>
-                                    <TextBox BorderBrush="LightGray" Height="30" Margin="0,5,0,0" VerticalContentAlignment="Center" FontSize="16"></TextBox>
-                                    <Label FontSize="16">User name</Label>
-                                    <TextBox BorderBrush="LightGray" Height="30" Margin="0,5,0,0" VerticalContentAlignment="Center" FontSize="16"></TextBox>
-                                    <Label FontSize="16">Password</Label>
-                                    <TextBox BorderBrush="LightGray" Height="30" Margin="0,5,0,0" VerticalContentAlignment="Center" FontSize="16"></TextBox>
-                                    <Button s:Navigation.Attach="True" s:Navigation.Uri="Views/FtpViewer/ftpViewer.xaml" Command="{Binding SelectFtpDerectory}" CommandParameter="source" Height="30" Margin="0,5,0,0" FontSize="18">Connect</Button>
+                                    <Label  >Uri</Label>
+                                    <TextBox Text="{Binding SourceFtpUri}" BorderBrush="LightGray" Height="30" Margin="0,5,0,0" VerticalContentAlignment="Center" ></TextBox>
+                                    <Label >User name</Label>
+                                    <TextBox  BorderBrush="LightGray" Height="30" Margin="0,5,0,0" VerticalContentAlignment="Center" ></TextBox>
+                                    <Label >Password</Label>
+                                    <TextBox BorderBrush="LightGray" Height="30" Margin="0,5,0,0" VerticalContentAlignment="Center" ></TextBox>
+                                    <Button s:Navigation.Attach="True" s:Navigation.Uri="Views/FtpViewer/ftpViewer.xaml" Command="{Binding SelectSourceFtpDerectory}" CommandParameter="source" Height="30" Margin="0,5,0,0">Browse</Button>
                                 </StackPanel>
                             </Border>
                         </StackPanel>
@@ -177,7 +177,7 @@
                 </Grid>
             </Border>
         </Grid>
-        <Grid Grid.Column="1" Grid.Row="0">
+        <Grid Panel.ZIndex="1" Grid.Column="1" Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition Width="auto"/>
@@ -188,10 +188,10 @@
                 <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
             <Label Grid.ColumnSpan="2" Grid.Row="0" VerticalContentAlignment="Center" Content="Target folder"/>
-            <TextBox Grid.Column="0" Grid.Row="1" BorderBrush="LightGray" IsEnabled="False" HorizontalAlignment="Stretch" Margin="5" TextWrapping="Wrap" Text="{Binding TargetFolderPath}" VerticalContentAlignment="Center" />
+            <TextBox Grid.Column="0" Grid.Row="1" BorderBrush="LightGray" IsReadOnly="True" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Stretch" Margin="5" TextWrapping="Wrap" Text="{Binding TargetFolderPath}" VerticalContentAlignment="Center" />
             <Button Visibility="Collapsed" Grid.Column="2" Grid.Row="1" Width="105" Margin="0,5,5,5" Height="auto" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="14" Padding="1" UseLayoutRounding="True" HorizontalAlignment="Right" Command="{Binding SelectDirectory}" Content="Browse"/>
             <ToggleButton x:Name="TargetBrowse" Grid.Column="2" Margin="0,5,5,5" Grid.Row="1">Browse</ToggleButton>
-            <Border Height="auto" Grid.Row="1" Style="{StaticResource TargetPanel}" CornerRadius="3" Background="White" BorderBrush="LightGray" BorderThickness="1" FlowDirection="LeftToRight" Width="198" Grid.ColumnSpan="3" HorizontalAlignment="Right" VerticalAlignment="Top">
+            <Border Height="auto" Grid.Row="1" Panel.ZIndex="1" Style="{StaticResource TargetPanel}" CornerRadius="3" Background="White" BorderBrush="LightGray" BorderThickness="1" FlowDirection="LeftToRight" Width="198" Grid.ColumnSpan="3" HorizontalAlignment="Right" VerticalAlignment="Top">
                 <Grid Margin="5">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
@@ -204,7 +204,7 @@
                         <StackPanel>
                             <Border x:Name="FsTarget" >
                                 <StackPanel>
-                                    <Button Command="{Binding SelectDirectory}" CommandParameter="target"   Height="30" Margin="0,5,0,0" >Browse</Button>
+                                    <Button Command="{Binding SelectTargetDirectory}" CommandParameter="target"   Height="30" Margin="0,5,0,0" >Browse</Button>
                                 </StackPanel>
                             </Border>
                         </StackPanel>
@@ -213,13 +213,13 @@
                         <StackPanel>
                             <Border x:Name="FtpTarget" >
                                 <StackPanel>
-                                    <Label  FontSize="16">Uri</Label>
-                                    <TextBox BorderBrush="LightGray" Height="30" Margin="0,5,0,0" VerticalContentAlignment="Center" FontSize="16"></TextBox>
-                                    <Label FontSize="16">User name</Label>
-                                    <TextBox BorderBrush="LightGray" Height="30" Margin="0,5,0,0" VerticalContentAlignment="Center" FontSize="16"></TextBox>
-                                    <Label FontSize="16">Password</Label>
-                                    <TextBox BorderBrush="LightGray" Height="30" Margin="0,5,0,0" VerticalContentAlignment="Center" FontSize="16"></TextBox>
-                                    <Button s:Navigation.Attach="True" s:Navigation.Uri="Views/FtpViewer/ftpViewer.xaml" Command="{Binding SelectFtpDerectory}" CommandParameter="target" Height="30" Margin="0,5,0,0" FontSize="18">Connect</Button>
+                                    <Label  >Uri</Label>
+                                    <TextBox Text="{Binding TargetFtpUri}" BorderBrush="LightGray" Height="30" Margin="0,5,0,0" VerticalContentAlignment="Center"></TextBox>
+                                    <Label >User name</Label>
+                                    <TextBox BorderBrush="LightGray" Height="30" Margin="0,5,0,0" VerticalContentAlignment="Center" ></TextBox>
+                                    <Label >Password</Label>
+                                    <TextBox BorderBrush="LightGray" Height="30" Margin="0,5,0,0" VerticalContentAlignment="Center" ></TextBox>
+                                    <Button s:Navigation.Attach="True" s:Navigation.Uri="Views/FtpViewer/ftpViewer.xaml" Command="{Binding SelectTargetFtpDerectory}" CommandParameter="target" Height="30" Margin="0,5,0,0">Browse</Button>
                                 </StackPanel>
                             </Border>
                         </StackPanel>
@@ -227,6 +227,23 @@
                 </Grid>
             </Border>
         </Grid>
-
+        <Grid Panel.ZIndex="0" Grid.ColumnSpan="2" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid  Grid.Row="1" Grid.ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="2" Height="30" Margin="5" Width="100">Create</Button>
+            </Grid>
+        </Grid>
     </Grid>
 </Page>

@@ -21,7 +21,9 @@ namespace Work1.Utils
     {
         private string password;
         private string userName;
-        private string uri;
+        public string Uri;
+        private string prevUri;
+        private readonly string hostUri;
         private int bufferSize = 1024;
 
         public bool Passive = true;
@@ -31,28 +33,37 @@ namespace Work1.Utils
 
         public FtpClient(string uri, string userName, string password)
         {
-            this.uri = uri;
+            this.Uri = uri;
+            this.hostUri = uri;
+            this.prevUri = uri;
             this.userName = userName;
             this.password = password;
         }
-
+        public FtpClient(string uri, FtpUser user)
+        {
+            this.Uri = uri;
+            this.hostUri = uri;
+            this.prevUri = uri;
+            this.userName = user.User;
+            this.password = user.Password;
+        }
         public string ChangeWorkingDirectory(string path)
         {
-            uri = combine(uri, path);
+            Uri = combine(Uri, path);
 
             return PrintWorkingDirectory();
         }
 
         public string DeleteFile(string fileName)
         {
-            var request = createRequest(combine(uri, fileName), WebRequestMethods.Ftp.DeleteFile);
+            var request = createRequest(combine(Uri, fileName), WebRequestMethods.Ftp.DeleteFile);
 
             return getStatusDescription(request);
         }
 
         public string DownloadFile(string source, string dest)
         {
-            var request = createRequest(combine(uri, source), WebRequestMethods.Ftp.DownloadFile);
+            var request = createRequest(combine(Uri, source), WebRequestMethods.Ftp.DownloadFile);
 
             byte[] buffer = new byte[bufferSize];
 
@@ -81,7 +92,7 @@ namespace Work1.Utils
 
         public DateTime GetDateTimestamp(string fileName)
         {
-            var request = createRequest(combine(uri, fileName), WebRequestMethods.Ftp.GetDateTimestamp);
+            var request = createRequest(combine(Uri, fileName), WebRequestMethods.Ftp.GetDateTimestamp);
 
             using (var response = (FtpWebResponse)request.GetResponse())
             {
@@ -91,7 +102,7 @@ namespace Work1.Utils
 
         public long GetFileSize(string fileName)
         {
-            var request = createRequest(combine(uri, fileName), WebRequestMethods.Ftp.GetFileSize);
+            var request = createRequest(combine(Uri, fileName), WebRequestMethods.Ftp.GetFileSize);
 
             using (var response = (FtpWebResponse)request.GetResponse())
             {
@@ -147,7 +158,7 @@ namespace Work1.Utils
 
         public string MakeDirectory(string directoryName)
         {
-            var request = createRequest(combine(uri, directoryName), WebRequestMethods.Ftp.MakeDirectory);
+            var request = createRequest(combine(Uri, directoryName), WebRequestMethods.Ftp.MakeDirectory);
 
             return getStatusDescription(request);
         }
@@ -161,14 +172,14 @@ namespace Work1.Utils
 
         public string RemoveDirectory(string directoryName)
         {
-            var request = createRequest(combine(uri, directoryName), WebRequestMethods.Ftp.RemoveDirectory);
+            var request = createRequest(combine(Uri, directoryName), WebRequestMethods.Ftp.RemoveDirectory);
 
             return getStatusDescription(request);
         }
 
         public string Rename(string currentName, string newName)
         {
-            var request = createRequest(combine(uri, currentName), WebRequestMethods.Ftp.Rename);
+            var request = createRequest(combine(Uri, currentName), WebRequestMethods.Ftp.Rename);
 
             request.RenameTo = newName;
 
@@ -177,7 +188,7 @@ namespace Work1.Utils
 
         public string UploadFile(string source, string destination)
         {
-            var request = createRequest(combine(uri, destination), WebRequestMethods.Ftp.UploadFile);
+            var request = createRequest(combine(Uri, destination), WebRequestMethods.Ftp.UploadFile);
 
             using (var stream = request.GetRequestStream())
             {
@@ -230,7 +241,7 @@ namespace Work1.Utils
 
         private FtpWebRequest createRequest(string method)
         {
-            return createRequest(uri, method);
+            return createRequest(Uri, method);
         }
 
         private FtpWebRequest createRequest(string uri, string method)
@@ -258,6 +269,51 @@ namespace Work1.Utils
         {
             return Path.Combine(path1, path2).Replace("\\", "/");
         }
+        public void ToDerectory(FileDirectoryInfo derectory)
+        {
+            if(derectory!=null)
+            {
+                this.Uri = derectory.Adress;
+            }
+        }
+        private string derectoryUp(string path)
+        {
+            if (path != hostUri)
+            {
+                var adress = (new StringBuilder(new string(path.Reverse().ToArray()))).ToString();
+                int length = adress.IndexOf('/', 1);
+                var result = new StringBuilder(adress);
+                result.Remove(0, length);
+
+                return new string(result.ToString().Reverse().ToArray());
+            }
+            else return hostUri;
+        }
+        public List<FileDirectoryInfo> LoadDerectory()
+        {
+            Regex regex = new Regex(@"^([d-])([rwxt-]{3}){3}\s+\d{1,}\s+.*?(\d{1,})\s+(\w+\s+\d{1,2}\s+(?:\d{4})?)(\d{1,2}:\d{2})?\s+(.+?)\s?$",
+    RegexOptions.Compiled | RegexOptions.Multiline | RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
+            List<FileDirectoryInfo> list = this.ListDirectoryDetails()
+                                                 .Select(s =>
+                                                 {
+                                                     Match match = regex.Match(s);
+                                                     if (match.Length > 5)
+                                                     {
+                                                         DirectoryType type = match.Groups[1].Value == "d" ? DirectoryType.Folder : DirectoryType.File;
+                                                         Uri icon = type == DirectoryType.Folder ? new Uri("/Content/Images/folder.png", UriKind.RelativeOrAbsolute) : new Uri("/Content/Images/file.png", UriKind.RelativeOrAbsolute);
+                                                         string size = "";
+                                                         size = (Int32.Parse(match.Groups[3].Value.Trim()) / 1024).ToString() + " kB";
+
+                                                         return new FileDirectoryInfo(size, type, match.Groups[6].Value, match.Groups[4].Value,String.Format("{0}/", combine(this.Uri, match.Groups[6].Value))) { Icon = icon };
+                                                     }
+                                                     else return new FileDirectoryInfo();
+                                                 }).ToList();
+            list.Add(new FileDirectoryInfo("", DirectoryType.Back, "", "", this.derectoryUp(this.Uri), "Back") { Icon = new Uri("/Content/Images/back.png", UriKind.RelativeOrAbsolute) });
+            list.Reverse();
+            list = list.OrderByDescending(x => x.Type).ToList();
+            return list ?? null;
+        }
+        #region Static load
         public static List<FileDirectoryInfo> LoadDerictory(string uri, string userName, string password)
         {
 
@@ -301,5 +357,6 @@ namespace Work1.Utils
             //MessageBox.Show(ex.ToString() + ": \n" + ex.Message);
             //return new List<FileDirectoryInfo>();
         }
+        #endregion
     }
 }

@@ -90,6 +90,20 @@
                 </Button.RenderTransform>
                 |||
             </Button>
+            <Grid Grid.Column="1" Visibility="Collapsed" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label FontSize="18" FontWeight="Bold" Foreground="White">Folder</Label>
+                    <Border Grid.Column="1"  Background="#ff9900" CornerRadius="3">
+                        <Label FontSize="18" FontWeight="Bold">
+                            Synchroniser
+                        </Label>
+                    </Border>
+                </Grid>
+            </Grid>
         </Grid>
         <Grid Grid.Row="1" Background="#e9ebef">
             <Grid.ColumnDefinitions>

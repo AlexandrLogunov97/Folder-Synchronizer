@@ -16,8 +16,10 @@ namespace Work1.ViewModels
         public string PrevAdress { get; set; }
         public string NewDirectory { get; set; } = "new directory";
         public FileDirectoryInfo SelectedDirectory { get; set; }
-        
-        string preveousDirectory { get; set; }
+
+
+        public string SearchQuery { get; set; }
+
         FtpClient ftpClient;
         public ObservableCollection<FileDirectoryInfo> Derictories { get; set; }
         private List<FileDirectoryInfo> sourceDerictories;
@@ -42,22 +44,29 @@ namespace Work1.ViewModels
                 return toDirectory ?? (toDirectory = new Command(obj =>
                 {
                     FileDirectoryInfo fdi = SelectedDirectory;
-                    if (fdi.Type != DirectoryType.File)
+                    ftpClient.ToDerectory(SelectedDirectory);
+                    sourceDerictories = ftpClient.LoadDerectory();
+                    Derictories = new ObservableCollection<FileDirectoryInfo>(sourceDerictories);   
+                }));
+            }
+        }
+        private void reload()
+        {
+            sourceDerictories = ftpClient.LoadDerectory();
+            Derictories = new ObservableCollection<FileDirectoryInfo>(sourceDerictories);
+        }
+        private Command refresh;
+        public Command Refresh
+        {
+            get
+            {
+                return refresh ?? (refresh = new Command(obj =>
+                {
+                    try
                     {
-                        string currentUri;
-                        if (fdi.Type!=DirectoryType.Back)
-                        {
-                            currentUri = SelectedDirectory.Adress;
-                        }
-                        else
-                        {
-                            currentUri = SelectedDirectory.Adress;
-                        }
-                        FtpUri = currentUri;
-                        sourceDerictories = FtpClient.LoadDerictory(currentUri, "", "");
-                        Derictories = new ObservableCollection<FileDirectoryInfo>(sourceDerictories);
+                        reload();
                     }
-                    
+                    catch (Exception) { }
                 }));
             }
         }
@@ -74,21 +83,19 @@ namespace Work1.ViewModels
                 }));
             }
         }
-        public bool Connect()
+        public bool Connect(string ftpUri ,FtpUser user)
         {
             try
             {
-                ftpClient = new FtpClient(FtpUri, "", "");
-
-                sourceDerictories = FtpClient.LoadDerictory(FtpUri, "", "");
+                
+                ftpClient = new FtpClient(ftpUri, user);
+                FtpUri = ftpUri;
+                sourceDerictories = ftpClient.LoadDerectory();
                 Derictories = new ObservableCollection<FileDirectoryInfo>(sourceDerictories);
-                CreateConnection.CanCantinue = true;
                 return true;
             }
             catch (Exception)
             {
-                MessageBox.Show("Error of ftp server", "Error");
-                CreateConnection.CanCantinue = false;
                 return false;
             }
         }
@@ -99,8 +106,16 @@ namespace Work1.ViewModels
             {
                 return create ?? (create = new NavigationCommand(obj =>
                 {
-                    //ftpClient = new FtpClient(FtpUri, "", "");
-                    MessageBox.Show(ftpClient.MakeDirectory(NewDirectory));
+                    try
+                    {
+                        ftpClient.MakeDirectory(NewDirectory);
+                        reload();
+                        Create.CanCantinue = true;
+                    }
+                    catch(Exception ex)
+                    {
+                        Create.CanCantinue = false;
+                    }
                 },
                 obj =>
                 {
@@ -108,26 +123,40 @@ namespace Work1.ViewModels
                 }));
             }
         }
-        private NavigationCommand createConnection;
-        public NavigationCommand CreateConnection
+
+        private Command selectRenamedDerectory;
+        public Command SelectRenamedDerectory
         {
             get
             {
-                return createConnection ?? (createConnection = new NavigationCommand(obj =>
+                return selectRenamedDerectory ?? (selectRenamedDerectory = new Command(obj =>
                 {
-                    Connect();
-                    //try
-                    //{
-                    //    ftpClient = new FtpClient(FtpUri, "", "");
-                    //    sourceDerictories = FtpClient.LoadDerictory(FtpUri, "", "");
-                    //    Derictories = new ObservableCollection<FileDirectoryInfo>(sourceDerictories);
-                    //}
-                    //catch (Exception)
-                    //{
-                    //    MessageBox.Show("Error of ftp server", "Error");
-                    //    return;
-                    //}
-                    //CreateConnection.CanCantinue = true;
+                    NewDirectory = SelectedDirectory.Name;
+                },
+                obj =>
+                {
+                    return SelectedDirectory!= null && SelectedDirectory?.Type==DirectoryType.Folder;
+                }));
+            }
+        }
+
+        private NavigationCommand rename;
+        public NavigationCommand Rename
+        {
+            get
+            {
+                return rename ?? (rename = new NavigationCommand(obj =>
+                {
+                    try
+                    {
+                        ftpClient.Rename(SelectedDirectory.Name,NewDirectory);
+                        reload();
+                        Rename.CanCantinue = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        Rename.CanCantinue = false;
+                    }
                 },
                 obj =>
                 {
@@ -135,7 +164,6 @@ namespace Work1.ViewModels
                 }));
             }
         }
-        public string SearchQuery { get; set; }
         private Command search;
         public Command Search
         {
