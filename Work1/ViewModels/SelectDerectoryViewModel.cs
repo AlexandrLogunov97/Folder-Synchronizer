@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using Work1.Utils;
+using System.Collections.Specialized;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Work1.ViewModels
 {
@@ -25,6 +27,8 @@ namespace Work1.ViewModels
 
         public string SourceFtpUri { get; set; }
         public string TargetFtpUri { get; set; }
+
+        private object toCopy;
 
         private TypeDerectory typeDerectory;
 
@@ -45,6 +49,7 @@ namespace Work1.ViewModels
                     if (dialog.ShowDialog() == DialogResult.OK)
                     {
                         SourceFolderPath = dialog.SelectedPath;
+                        
                         typeDerectory = TypeDerectory.Source;
                     }
                 }));
@@ -89,6 +94,67 @@ namespace Work1.ViewModels
                 {
                     ViewModel.Get<FtpViewModel>().Connect(TargetFtpUri,TargetUser);
                     typeDerectory = TypeDerectory.Target;
+                }));
+            }
+        }
+        public byte[] ObjectToByteArray(Object obj)
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            using (var ms = new MemoryStream())
+            {
+                bf.Serialize(ms, obj);
+                return ms.ToArray();
+            }
+        }
+        private void CopyFromFSToFtp(string fsPath= "c:/Users/acer/Desktop/SourceFolder/", string ftpPath= "ftp://192.168.1.34:3721/Truba/")
+        {
+            FtpClient ftp = new FtpClient(ftpPath, new FtpUser());
+            DirectoryInfo directory = new DirectoryInfo(fsPath);
+            directory.GetDirectories().ToList().ForEach(x =>
+            {
+                if (!ftp.IsExist(x.Name))
+                {
+                    ftp.MakeDirectory(x.Name);
+                }
+                else
+                {
+                    ftp.Rename(x.Name, String.Format("{0}-copy({1})", x.Name, DateTime.Now));
+                    ftp.MakeDirectory(x.Name);
+                }
+            });
+        }
+        private void CopyFromFtpToFtp()
+        {
+
+        }
+        private void CopyFromFSToFS()
+        {
+
+        }
+        private void CopyFromFtpToFS()
+        {
+
+        }
+        private Command create;
+        public Command Create
+        {
+            get
+            {
+                return create ?? (create = new Command(obj =>
+                {
+
+                    CopyFromFSToFtp();
+                    //FtpClient ftp = new FtpClient("ftp://192.168.1.34:3721/Truba/", new FtpUser());
+                    //ftp.UploadFile("c:/Users/acer/Desktop/SourceFolder/Test.txt", "Test.txt");
+
+                    //sc.Add(SourceFolderPath);
+                    //Clipboard.SetFileDropList(sc);
+                    //byte[] buffer=new byte[1024];
+                    ////buffer = ObjectToByteArray(Clipboard.GetData(n));
+                    //using (FileStream fs = new FileStream(TargetFolderPath, FileMode.OpenOrCreate))
+                    //{
+                    //    fs.WriteAsync(buffer, 0, buffer.Length);
+                    //}
                 }));
             }
         }

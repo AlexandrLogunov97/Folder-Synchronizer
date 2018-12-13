@@ -242,7 +242,7 @@
                     <ColumnDefinition/>
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="2" Height="30" Margin="5" Width="100">Create</Button>
+                <Button Command="{Binding Create}" Grid.Column="2" Height="30" Margin="5" Width="100">Create</Button>
             </Grid>
         </Grid>
     </Grid>

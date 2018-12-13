@@ -185,9 +185,15 @@ namespace Work1.Utils
 
             return getStatusDescription(request);
         }
-
+        public bool IsExist(string name)
+        {
+            var request = createRequest(combine(Uri, name), WebRequestMethods.Ftp.Rename);            
+            var result = this.LoadDerectory().Exists(x => x.Name == name);
+            return result;
+        }
         public string UploadFile(string source, string destination)
         {
+
             var request = createRequest(combine(Uri, destination), WebRequestMethods.Ftp.UploadFile);
 
             using (var stream = request.GetRequestStream())
@@ -289,6 +295,7 @@ namespace Work1.Utils
             }
             else return hostUri;
         }
+        
         public List<FileDirectoryInfo> LoadDerectory()
         {
             Regex regex = new Regex(@"^([d-])([rwxt-]{3}){3}\s+\d{1,}\s+.*?(\d{1,})\s+(\w+\s+\d{1,2}\s+(?:\d{4})?)(\d{1,2}:\d{2})?\s+(.+?)\s?$",
