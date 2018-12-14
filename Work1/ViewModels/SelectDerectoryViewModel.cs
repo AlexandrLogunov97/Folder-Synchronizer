@@ -123,13 +123,81 @@ namespace Work1.ViewModels
                 }
             });
         }
-        private void CopyFromFtpToFtp()
-        {
+        //private void CopyFromFtpToFtp(string source, string destination)
+        //{
+        //    FtpClient ftpSource = new FtpClient(source, new FtpUser());
+        //    FtpClient ftpDestination = new FtpClient(destination, new FtpUser());
+        //    //if (!destination.Is)
+        //    //{
+        //    //    destination.();
+        //    //}
 
-        }
-        private void CopyFromFSToFS()
-        {
+        //    // Copy all files.
+            
+        //    List<FileDirectoryInfo> files = ftpSource.GetFiles();
+        //    foreach (FileDirectoryInfo file in files)
+        //    {
+        //        if (!File.Exists(Path.Combine(destination.FullName,
+        //            file.Name)))
+        //            file.CopyTo(Path.Combine(destination.FullName,
+        //                file.Name));
+        //    }
 
+        //    // Process subdirectories.
+        //    DirectoryInfo[] dirs = source.GetDirectories();
+        //    foreach (DirectoryInfo dir in dirs)
+        //    {
+        //        // Get destination directory.
+        //        string destinationDir = Path.Combine(destination.FullName, dir.Name);
+
+        //        // Call CopyDirectory() recursively.
+        //        CopyFromFSToFS(dir, new DirectoryInfo(destinationDir));
+        //    }
+        //}
+        private void CopyFromFSToFS(DirectoryInfo source, DirectoryInfo destination)
+        {
+            if (!destination.Exists)
+            {
+                destination.Create();
+            }
+
+            // Copy all files.
+            FileInfo[] files = source.GetFiles();
+            foreach (FileInfo file in files)
+            {
+                if (!File.Exists(Path.Combine(destination.FullName,
+                    file.Name)))
+                file.CopyTo(Path.Combine(destination.FullName,
+                    file.Name));
+            }
+
+            // Process subdirectories.
+            DirectoryInfo[] dirs = source.GetDirectories();
+            foreach (DirectoryInfo dir in dirs)
+            {
+                // Get destination directory.
+                string destinationDir = Path.Combine(destination.FullName, dir.Name);
+
+                // Call CopyDirectory() recursively.
+                CopyFromFSToFS(dir, new DirectoryInfo(destinationDir));
+            }
+            //DirectoryInfo directory = new DirectoryInfo(source);
+            //directory.GetDirectories().ToList().ForEach(x =>
+            //{
+            //    MessageBox.Show(source + " " + target);
+            //    if (!Directory.Exists(String.Format("{0}/{1}", target, x.Name)))
+            //    {
+            //        Directory.CreateDirectory(String.Format("{0}/{1}", target, x.Name));
+            //    }
+            //    directory.GetFiles().ToList().ForEach(y =>
+            //    {
+            //        if (!File.Exists(String.Format("{0}/{1}", target, y.Name)))
+            //        {
+            //            File.Copy(String.Format("{0}/{1}", source, y.Name), String.Format("{0}/{1}", target, y.Name));
+            //        }
+            //    });
+            //    CopyFromFSToFS(String.Format("{0}/{1}", source, x.Name), String.Format("{0}/{1}", target, x.Name));
+            //});
         }
         private void CopyFromFtpToFS()
         {
@@ -143,7 +211,8 @@ namespace Work1.ViewModels
                 return create ?? (create = new Command(obj =>
                 {
 
-                    CopyFromFSToFtp();
+                    //CopyFromFSToFtp();
+                    CopyFromFSToFS(new DirectoryInfo(SourceFolderPath),new DirectoryInfo(TargetFolderPath));
                     //FtpClient ftp = new FtpClient("ftp://192.168.1.34:3721/Truba/", new FtpUser());
                     //ftp.UploadFile("c:/Users/acer/Desktop/SourceFolder/Test.txt", "Test.txt");
 
@@ -176,8 +245,8 @@ namespace Work1.ViewModels
         }
         public SelectDerectoryViewModel()
         {
-            this.SourceFtpUri= "ftp://192.168.1.34:3721/";
-            this.TargetFtpUri= "ftp://192.168.1.34:3721/";
+            this.SourceFtpUri= "ftp://192.168.1.100:3721/";
+            this.TargetFtpUri= "ftp://192.168.1.100:3721/";
             this.SourceUser = new FtpUser() { };
             this.TargetUser = new FtpUser() { };
         }

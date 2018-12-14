@@ -14,7 +14,7 @@ namespace Work1.ViewModels
     {
         public string FtpUri { get; set; }
         public string PrevAdress { get; set; }
-        public string NewDirectory { get; set; } = "new directory";
+        public string NewDirectory { get; set; } 
         public FileDirectoryInfo SelectedDirectory { get; set; }
 
 
@@ -79,7 +79,7 @@ namespace Work1.ViewModels
                 {
                     ViewModel.Get<SelectDerectoryViewModel>().SetSelectedPath(SelectedDirectory.Adress);
                 },obj=> {
-                    return SelectedDirectory!=null && SelectedDirectory?.Type==DirectoryType.Folder;
+                    return SelectedDirectory!=null && SelectedDirectory.Type==DirectoryType.Folder;
                 }));
             }
         }
@@ -135,7 +135,7 @@ namespace Work1.ViewModels
                 },
                 obj =>
                 {
-                    return SelectedDirectory!= null && SelectedDirectory?.Type==DirectoryType.Folder;
+                    return SelectedDirectory!= null && SelectedDirectory.Type==DirectoryType.Folder;
                 }));
             }
         }
@@ -181,6 +181,7 @@ namespace Work1.ViewModels
         public FtpViewModel()
         {
             FtpUri = "ftp://192.168.1.34:3721/";
+            NewDirectory = "New directory";
         }
     }
 }

@@ -282,6 +282,7 @@ namespace Work1.Utils
                 this.Uri = derectory.Adress;
             }
         }
+
         private string derectoryUp(string path)
         {
             if (path != hostUri)
@@ -295,7 +296,10 @@ namespace Work1.Utils
             }
             else return hostUri;
         }
-        
+        public List<FileDirectoryInfo> GetFiles()
+        {
+            return LoadDerectory().Where(x => x.Type == DirectoryType.File).ToList();
+        }
         public List<FileDirectoryInfo> LoadDerectory()
         {
             Regex regex = new Regex(@"^([d-])([rwxt-]{3}){3}\s+\d{1,}\s+.*?(\d{1,})\s+(\w+\s+\d{1,2}\s+(?:\d{4})?)(\d{1,2}:\d{2})?\s+(.+?)\s?$",

@@ -94,3 +94,13 @@ E:\Projects\CSharp\Works\Folder-Synchronizer\Work1\obj\Debug\Views\FtpViewer\Cre
 E:\Projects\CSharp\Works\Folder-Synchronizer\Work1\obj\Debug\Views\FtpViewer\RenameDerectory.baml
 E:\Projects\CSharp\Works\Folder-Synchronizer\Work1\obj\Debug\MainWindow.g.cs
 E:\Projects\CSharp\Works\Folder-Synchronizer\Work1\obj\Debug\MainWindow.baml
+C:\Users\Наталья\Desktop\Folder-Synchronizer\Work1\obj\Debug\Work1.csprojResolveAssemblyReference.cache
+C:\Users\Наталья\Desktop\Folder-Synchronizer\Work1\obj\Debug\MainWindow.g.cs
+C:\Users\Наталья\Desktop\Folder-Synchronizer\Work1\obj\Debug\Views\CreateRepository\Create.g.cs
+C:\Users\Наталья\Desktop\Folder-Synchronizer\Work1\obj\Debug\Views\FtpViewer\CreateDerectory.g.cs
+C:\Users\Наталья\Desktop\Folder-Synchronizer\Work1\obj\Debug\Views\FtpViewer\RenameDerectory.g.cs
+C:\Users\Наталья\Desktop\Folder-Synchronizer\Work1\bin\Debug\S.pdb
+C:\Users\Наталья\Desktop\Folder-Synchronizer\Work1\obj\Debug\MainWindow.baml
+C:\Users\Наталья\Desktop\Folder-Synchronizer\Work1\obj\Debug\Views\CreateRepository\Create.baml
+C:\Users\Наталья\Desktop\Folder-Synchronizer\Work1\obj\Debug\Views\FtpViewer\CreateDerectory.baml
+C:\Users\Наталья\Desktop\Folder-Synchronizer\Work1\obj\Debug\Views\FtpViewer\RenameDerectory.baml
