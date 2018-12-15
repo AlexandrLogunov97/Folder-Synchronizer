@@ -29,6 +29,7 @@ namespace Work1.ViewModels
         public string TargetFtpUri { get; set; }
 
         private object toCopy;
+        readonly string pathToFileBuffer;
 
         private TypeDerectory typeDerectory;
 
@@ -123,37 +124,46 @@ namespace Work1.ViewModels
                 }
             });
         }
-        //private void CopyFromFtpToFtp(string source, string destination)
-        //{
-        //    FtpClient ftpSource = new FtpClient(source, new FtpUser());
-        //    FtpClient ftpDestination = new FtpClient(destination, new FtpUser());
-        //    //if (!destination.Is)
-        //    //{
-        //    //    destination.();
-        //    //}
+        private void CopyFromFtpToFtp(string source, string destination)
+        {
+            try
+            {
+                //MessageBox.Show(source + " " + destination);
+                FtpClient ftpSource = new FtpClient(source, new FtpUser());
+                FtpClient ftpDestination = new FtpClient(destination, new FtpUser());
 
-        //    // Copy all files.
-            
-        //    List<FileDirectoryInfo> files = ftpSource.GetFiles();
-        //    foreach (FileDirectoryInfo file in files)
-        //    {
-        //        if (!File.Exists(Path.Combine(destination.FullName,
-        //            file.Name)))
-        //            file.CopyTo(Path.Combine(destination.FullName,
-        //                file.Name));
-        //    }
+                List<FileDirectoryInfo> files = ftpSource.GetFiles();
+                foreach (FileDirectoryInfo file in files)
+                {
+                    if (!ftpSource.IsExist(Path.Combine(destination, file.Name)))
+                    {
+                        ftpSource.DownloadFile(file.Name, string.Format("{1}/{0}", file.Name, pathToFileBuffer));
+                        ftpDestination.UploadFile(string.Format("{1}/{0}", file.Name, pathToFileBuffer), file.Name);
+                        //File.Delete(string.Format("{1}/{0}", file.Name, pathToFileBuffer));
+                    }
+                }
 
-        //    // Process subdirectories.
-        //    DirectoryInfo[] dirs = source.GetDirectories();
-        //    foreach (DirectoryInfo dir in dirs)
-        //    {
-        //        // Get destination directory.
-        //        string destinationDir = Path.Combine(destination.FullName, dir.Name);
-
-        //        // Call CopyDirectory() recursively.
-        //        CopyFromFSToFS(dir, new DirectoryInfo(destinationDir));
-        //    }
-        //}
+                List<FileDirectoryInfo> dirs = ftpSource.GetFolders();
+                foreach (FileDirectoryInfo dir in dirs)
+                {
+                    if (!ftpDestination.IsExist(dir.Name))
+                    {
+                        ftpDestination.MakeDirectory(dir.Name);
+                    }
+                    else
+                    {
+                        ftpDestination.RemoveDirectory(dir.Name);
+                        ftpDestination.MakeDirectory(dir.Name);
+                    }
+                    string destinationDir = Path.Combine(destination, dir.Name);
+                    CopyFromFtpToFtp(Path.Combine(source, dir.Name), destinationDir);
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
         private void CopyFromFSToFS(DirectoryInfo source, DirectoryInfo destination)
         {
             if (!destination.Exists)
@@ -212,18 +222,8 @@ namespace Work1.ViewModels
                 {
 
                     //CopyFromFSToFtp();
-                    CopyFromFSToFS(new DirectoryInfo(SourceFolderPath),new DirectoryInfo(TargetFolderPath));
-                    //FtpClient ftp = new FtpClient("ftp://192.168.1.34:3721/Truba/", new FtpUser());
-                    //ftp.UploadFile("c:/Users/acer/Desktop/SourceFolder/Test.txt", "Test.txt");
-
-                    //sc.Add(SourceFolderPath);
-                    //Clipboard.SetFileDropList(sc);
-                    //byte[] buffer=new byte[1024];
-                    ////buffer = ObjectToByteArray(Clipboard.GetData(n));
-                    //using (FileStream fs = new FileStream(TargetFolderPath, FileMode.OpenOrCreate))
-                    //{
-                    //    fs.WriteAsync(buffer, 0, buffer.Length);
-                    //}
+                    // CopyFromFSToFS(new DirectoryInfo(SourceFolderPath),new DirectoryInfo(TargetFolderPath));
+                    CopyFromFtpToFtp(SourceFolderPath, TargetFolderPath);
                 }));
             }
         }
@@ -245,8 +245,10 @@ namespace Work1.ViewModels
         }
         public SelectDerectoryViewModel()
         {
-            this.SourceFtpUri= "ftp://192.168.1.100:3721/";
-            this.TargetFtpUri= "ftp://192.168.1.100:3721/";
+            pathToFileBuffer = String.Format("{0}/{1}", Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).FullName).FullName, "FileBuffer");
+            pathToFileBuffer = pathToFileBuffer.Replace('\\', '/');
+            this.SourceFtpUri= "ftp://192.168.1.34:3721/";
+            this.TargetFtpUri= "ftp://192.168.1.34:3721/";
             this.SourceUser = new FtpUser() { };
             this.TargetUser = new FtpUser() { };
         }

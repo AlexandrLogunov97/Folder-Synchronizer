@@ -73,6 +73,7 @@ namespace Work1.Utils
                 {
                     using (var fs = new FileStream(dest, FileMode.OpenOrCreate))
                     {
+                        
                         int readCount = stream.Read(buffer, 0, bufferSize);
 
                         while (readCount > 0)
@@ -159,7 +160,6 @@ namespace Work1.Utils
         public string MakeDirectory(string directoryName)
         {
             var request = createRequest(combine(Uri, directoryName), WebRequestMethods.Ftp.MakeDirectory);
-
             return getStatusDescription(request);
         }
 
@@ -187,14 +187,13 @@ namespace Work1.Utils
         }
         public bool IsExist(string name)
         {
-            var request = createRequest(combine(Uri, name), WebRequestMethods.Ftp.Rename);            
+            var request = createRequest(combine(Uri, name), WebRequestMethods.Ftp.ListDirectory);            
             var result = this.LoadDerectory().Exists(x => x.Name == name);
             return result;
         }
         public string UploadFile(string source, string destination)
         {
-
-            var request = createRequest(combine(Uri, destination), WebRequestMethods.Ftp.UploadFile);
+            var request = createRequest(combine(Uri,destination), WebRequestMethods.Ftp.UploadFile);
 
             using (var stream = request.GetRequestStream())
             {
@@ -259,7 +258,6 @@ namespace Work1.Utils
             ftpRequest.UseBinary = Binary;
             ftpRequest.EnableSsl = EnableSsl;
             ftpRequest.UsePassive = Passive;
-
             return ftpRequest;
         }
 
@@ -283,6 +281,7 @@ namespace Work1.Utils
             }
         }
 
+        
         private string derectoryUp(string path)
         {
             if (path != hostUri)
@@ -299,6 +298,10 @@ namespace Work1.Utils
         public List<FileDirectoryInfo> GetFiles()
         {
             return LoadDerectory().Where(x => x.Type == DirectoryType.File).ToList();
+        }
+        public List<FileDirectoryInfo> GetFolders()
+        {
+            return LoadDerectory().Where(x => x.Type == DirectoryType.Folder).ToList();
         }
         public List<FileDirectoryInfo> LoadDerectory()
         {
