@@ -5,11 +5,136 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Work1.Views.Repositories"
       mc:Ignorable="d" 
+      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Repositories" Background="White">
-
+    <Page.Resources>
+        <Style TargetType="ListBoxItem">
+            <Style.Setters>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ListBoxItem">
+                            <Border x:Name="border" Height="50" HorizontalAlignment="Stretch">
+                                <Grid x:Name="Name">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Column="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <Label Grid.Row="0" Content="{Binding Source}" VerticalAlignment="Stretch" VerticalContentAlignment="Center"></Label>
+                                        <Label Grid.Row="1" Content="{Binding SourceType}" VerticalAlignment="Stretch" VerticalContentAlignment="Center"></Label>
+                                    </Grid>
+                                    <Grid Grid.Column="1">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <Label Grid.Row="0" Content="{Binding Target}" VerticalAlignment="Stretch" VerticalContentAlignment="Center"></Label>
+                                        <Label Grid.Row="1" Content="{Binding TargetType}" VerticalAlignment="Stretch" VerticalContentAlignment="Center"></Label>
+                                    </Grid>
+                                    <Label Grid.Column="2" Content="{Binding LastSync}"></Label>
+                                </Grid>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsSelected" Value="true">
+                                    <Setter TargetName="border" Property="Background" Value="#e9ebef"></Setter>
+                                    <!--<Setter TargetName="Name" Property="Foreground" Value="#323a45"></Setter>-->
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style.Setters>
+        </Style>
+        <Style TargetType="ListBox">
+            <Style.Setters>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ListBox">
+                            <Border Background="{TemplateBinding Background}">
+                                <ScrollViewer CanContentScroll="False" VirtualizingPanel.IsVirtualizing="True" UseLayoutRounding="True" PanningRatio="0.1" PanningDeceleration="0.0001" OverridesDefaultStyle="True">
+                                    <StackPanel IsItemsHost="True"></StackPanel>
+                                </ScrollViewer>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style.Setters>
+        </Style>
+        <DataTemplate x:Key="listTemplate">
+            <Grid Background="#FFFF1515" Width="200">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="{Binding Path=Name}"></Label>
+                <Label Grid.Column="1"></Label>
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
     <Grid>
-        <Label Content="Repositories" HorizontalAlignment="Left" Margin="305,210,0,0" VerticalAlignment="Top" Height="100" Width="280" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="22"/>
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0" BorderBrush="{Binding ElementName=DerictorySearch,Path=BorderBrush}" BorderThickness="0,0,0,1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="40"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBox Grid.ColumnSpan="2" BorderBrush="LightGray" x:Name="DerictorySearch" Margin="5,5,5,5" Height="30" VerticalContentAlignment="Center" FontSize="16" Padding="0,0,30,0">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="KeyDown">
+                            <i:InvokeCommandAction
+                            Command="{Binding Search}" CommandParameter="{Binding ElementName=DerictorySearch,Path=Text}"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="KeyUp">
+                            <i:InvokeCommandAction
+                            Command="{Binding Search}" CommandParameter="{Binding ElementName=DerictorySearch,Path=Text}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBox>
+                <Image Height="30" Width="30" Grid.Column="1"  Source="/Work1;component/Content/Images/search.png" ></Image>
+            </Grid>
+        </Border>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.ColumnSpan="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <ListBox ItemsSource="{Binding Repositories}">
+                </ListBox>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Button Height="30" Margin="5">Delete</Button>
+                    </Grid>
+                    
+                </Grid>
+            </Grid>
+        </Grid>
     </Grid>
 </Page>

@@ -18,11 +18,11 @@ using Work1.ViewModels;
 namespace Work1.Views.Repositories
 {
     /// <summary>
-    /// Логика взаимодействия для Repositories.xaml
+    /// Логика взаимодействия для SelectedRepository.xaml
     /// </summary>
-    public partial class Repositories : Page
+    public partial class SelectedRepository : Page
     {
-        public Repositories()
+        public SelectedRepository()
         {
             InitializeComponent();
             this.DataContext = ViewModel.Get<RepositoriesViewModel>();

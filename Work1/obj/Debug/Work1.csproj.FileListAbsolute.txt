@@ -87,7 +87,6 @@ E:\Projects\CSharp\Works\Folder-Synchronizer\Work1\obj\Debug\Work1.exe
 E:\Projects\CSharp\Works\Folder-Synchronizer\Work1\obj\Debug\Work1.pdb
 E:\Projects\CSharp\Works\Folder-Synchronizer\Work1\obj\Debug\Views\CreateRepository\Create.g.cs
 E:\Projects\CSharp\Works\Folder-Synchronizer\Work1\obj\Debug\Views\CreateRepository\Create.baml
-E:\Projects\CSharp\Works\Folder-Synchronizer\Work1\obj\Debug\Work1.csprojAssemblyReference.cache
 E:\Projects\CSharp\Works\Folder-Synchronizer\Work1\obj\Debug\Views\FtpViewer\CreateDerectory.g.cs
 E:\Projects\CSharp\Works\Folder-Synchronizer\Work1\obj\Debug\Views\FtpViewer\RenameDerectory.g.cs
 E:\Projects\CSharp\Works\Folder-Synchronizer\Work1\obj\Debug\Views\FtpViewer\CreateDerectory.baml
@@ -104,3 +103,6 @@ C:\Users\Наталья\Desktop\Folder-Synchronizer\Work1\obj\Debug\MainWindow.b
 C:\Users\Наталья\Desktop\Folder-Synchronizer\Work1\obj\Debug\Views\CreateRepository\Create.baml
 C:\Users\Наталья\Desktop\Folder-Synchronizer\Work1\obj\Debug\Views\FtpViewer\CreateDerectory.baml
 C:\Users\Наталья\Desktop\Folder-Synchronizer\Work1\obj\Debug\Views\FtpViewer\RenameDerectory.baml
+E:\Projects\CSharp\Works\Folder-Synchronizer\Work1\obj\Debug\Work1.csprojAssemblyReference.cache
+E:\Projects\CSharp\Works\Folder-Synchronizer\Work1\obj\Debug\Views\Repositories\SelectedRepository.g.cs
+E:\Projects\CSharp\Works\Folder-Synchronizer\Work1\obj\Debug\Views\Repositories\SelectedRepository.baml

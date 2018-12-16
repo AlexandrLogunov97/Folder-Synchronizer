@@ -1,4 +1,5 @@
-﻿using System;
+﻿using S;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Work1.ViewModels;
 
 namespace Work1.Views.Main
 {
@@ -23,6 +25,14 @@ namespace Work1.Views.Main
         public MasterPage()
         {
             InitializeComponent();
+            this.Repositories.DataContext = ViewModel.Get<RepositoriesViewModel>();
+            Button a=new Button();
+            UIElement b = (UIElement)a;
+        }
+
+        private void border_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show("vasv");
         }
     }
 }

@@ -68,7 +68,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\Repository.cs" />
+    <Compile Include="Models\RepositoryDbContext.cs" />
     <Compile Include="Utils\FtpUser.cs" />
+    <Compile Include="ViewModels\RepositoriesViewModel.cs" />
     <Compile Include="ViewModels\SelectDerectoryViewModel.cs" />
     <Compile Include="ViewModels\FtpViewModel.cs" />
     <Compile Include="App.xaml.cs">
@@ -100,6 +103,9 @@
     </Compile>
     <Compile Include="Views\Repositories\Repositories.xaml.cs">
       <DependentUpon>Repositories.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repositories\SelectedRepository.xaml.cs">
+      <DependentUpon>SelectedRepository.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <SubType>Designer</SubType>
@@ -137,6 +143,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Repositories\SelectedRepository.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -166,7 +176,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\" />
+    <Resource Include="Content\Images\addRepository.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Content\Images\back.png" />
@@ -181,7 +191,6 @@
     <Resource Include="Content\Images\search.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Content\Images\AddDirectory.png" />
     <Resource Include="Content\Images\DeleteDerectory.png" />
   </ItemGroup>
   <ItemGroup>
@@ -189,6 +198,18 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Content\Images\refresh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Content\Images\addRepositoryDark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Content\Images\AddDirectory.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Content\Images\searchLight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Content\Images\repositor.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\KindOfMagic.1.3.1\build\KindOfMagic.targets" Condition="Exists('..\packages\KindOfMagic.1.3.1\build\KindOfMagic.targets')" />

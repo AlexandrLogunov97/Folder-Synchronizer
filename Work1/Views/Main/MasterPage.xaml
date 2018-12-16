@@ -6,16 +6,19 @@
       xmlns:local="clr-namespace:Work1.Views.Main"
       mc:Ignorable="d" 
       xmlns:s="clr-namespace:S;assembly=S"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="MasterPage" ShowsNavigationUI="False">
 
     <Page.Resources>
         <Style TargetType="ListBoxItem">
             <Style.Setters>
+                <Setter Property="Foreground" Value="White"></Setter>
+                <Setter Property="FontSize" Value="14"></Setter>
                 <Setter Property="Template">
                     <Setter.Value>
-                        <ControlTemplate TargetType="ListBoxItem">
-                            <Border x:Name="border" Height="40" HorizontalAlignment="Stretch">
+                        <ControlTemplate  TargetType="ListBoxItem">
+                            <Border s:MasterPage.MenuItem="True" s:MasterPage.MenuItemSource="Views/Repositories/SelectedRepository.xaml" x:Name="border" Height="40" HorizontalAlignment="Stretch">
                                 <Label x:Name="Content" Padding="10,5,5,5" FontSize="{TemplateBinding FontSize}" Content="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}" VerticalContentAlignment="Center"></Label>
                             </Border>
                             <ControlTemplate.Triggers>
@@ -61,6 +64,33 @@
                                     <Setter TargetName="border" Property="Background" Value="White"></Setter>
                                     <Setter TargetName="content" Property="Foreground" Value="Black"></Setter>
                                 </Trigger>
+                                <!--<DataTrigger Binding="{Binding ElementName=Menu,Path=Width}" Value="0">
+                                    <Setter TargetName="border" Property="Visibility" Value="Collapsed"></Setter>
+                                </DataTrigger>-->
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style.Setters>
+        </Style>
+        <Style x:Key="AddRep" TargetType="{x:Type Button}">
+            <Style.Setters>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Border x:Name="border"  CornerRadius="25" BorderBrush="White" Width="25" Height="25" BorderThickness="1">
+                                    <Label x:Name="cont" Foreground="White"  Width="25" Height="25" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="0" Margin="0,-3,0,0" Content="{TemplateBinding Content}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16"/>
+                                </Border>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="true">
+                                    <Setter TargetName="border" Property="BorderBrush" Value="#FF464444"></Setter>
+                                    <Setter TargetName="cont" Property="Foreground" Value="#FF464444"></Setter>
+                                </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Setter.Value>
@@ -104,18 +134,63 @@
                     </Border>
                 </Grid>
             </Grid>
+            <Grid Grid.Column="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <Button Style="{StaticResource AddRep}" s:MasterPage.MenuItem="True" s:MasterPage.MenuItemSource="Views/CreateRepository/Create.xaml"  Grid.Column="1" Margin="0,0,5,0" Width="25" Height="25" Content="+" AutomationProperties.HelpText="Add repository"/>
+            </Grid>
         </Grid>
         <Grid Grid.Row="1" Background="#e9ebef">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <ListBox Width="200" x:Name="Menu" s:CloseMenu.Menu="True" Background="#626f80" MinWidth="0" MaxWidth="200" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
-                <ListBoxItem IsSelected="True" s:MasterPage.MenuItem="True" s:MasterPage.MenuItemSource="Views/CreateRepository/Create.xaml"   Content="Add repository" Foreground="White" FontSize="14"/>
-                <ListBoxItem s:MasterPage.MenuItem="True" s:MasterPage.MenuItemSource="Views/Repositories/Repositories.xaml" Content="Repositories" Background="{x:Null}" Foreground="White" FontSize="14"/>
-                <!--<ListBoxItem  Content="Tasks" Background="{x:Null}" Foreground="White" FontSize="14"/>
+
+            <Grid x:Name="Menu" s:CloseMenu.Menu="True" Width="200" MinWidth="0" MaxWidth="200">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                <Border Visibility="Collapsed" Grid.Row="0" Background="#FF626F80">
+                    <TextBox Height="30" Margin="5" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="#FFE9EBEF" Foreground="#FFE9EBEF"></TextBox>
+                </Border>
+                <Border Grid.Row="0" Background="#FF626F80" BorderBrush="{Binding ElementName=DerictorySearch,Path=BorderBrush}" >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="40"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBox Grid.ColumnSpan="2" BorderBrush="#FFE9EBEF" Background="#FF626F80" Foreground="#FFE9EBEF" x:Name="DerictorySearch" Margin="5,5,5,5" Height="30" VerticalContentAlignment="Center" FontSize="16" Padding="0,0,30,0">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="KeyDown">
+                                    <i:InvokeCommandAction
+                            Command="{Binding Search}" CommandParameter="{Binding ElementName=DerictorySearch,Path=Text}"/>
+                                </i:EventTrigger>
+                                <i:EventTrigger EventName="KeyUp">
+                                    <i:InvokeCommandAction
+                            Command="{Binding Search}" CommandParameter="{Binding ElementName=DerictorySearch,Path=Text}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </TextBox>
+                        <Image Height="30" Width="30" Grid.Column="1"  Source="/Work1;component/Content/Images/searchLight.png" ></Image>
+                    </Grid>
+                </Border>
+                <ContentControl Grid.Row="1" x:Name="Repositories">
+                    <ListBox   Background="#626f80" SelectedIndex="0" SelectedItem="{Binding SelectedRepository}" ItemsSource="{Binding Repositories}"  ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+                        <!--<ListBoxItem IsSelected="True" s:MasterPage.MenuItem="True" s:MasterPage.MenuItemSource="Views/CreateRepository/Create.xaml"   Content="Add repository" Foreground="White" FontSize="14"/>
+                        <ListBoxItem s:MasterPage.MenuItem="True" s:MasterPage.MenuItemSource="Views/Repositories/Repositories.xaml" Content="Repositories" Background="{x:Null}" Foreground="White" FontSize="14"/>-->
+                        <!--<ListBoxItem  Content="Tasks" Background="{x:Null}" Foreground="White" FontSize="14"/>
                 <ListBoxItem  Content="Tagging" Background="{x:Null}" Foreground="White" FontSize="14"/>-->
-            </ListBox>
+                    </ListBox>
+                </ContentControl>
+                </Grid>
+
+
             <Frame Grid.Column="1" Margin="10"  s:MasterPage.MenuItemTarget="True" NavigationUIVisibility="Hidden" Source="/Work1;component/Views/CreateRepository/Create.xaml"/>
         </Grid>
     </Grid>

@@ -223,7 +223,8 @@ namespace Work1.ViewModels
 
                     //CopyFromFSToFtp();
                     // CopyFromFSToFS(new DirectoryInfo(SourceFolderPath),new DirectoryInfo(TargetFolderPath));
-                    CopyFromFtpToFtp(SourceFolderPath, TargetFolderPath);
+                    //CopyFromFtpToFtp(SourceFolderPath, TargetFolderPath);
+                    ViewModel.Get<RepositoriesViewModel>().Repositories.Add(new Models.Repository() { Name = "Name", Source = SourceFolderPath, Target = TargetFolderPath, LastSync = DateTime.Now });
                 }));
             }
         }
