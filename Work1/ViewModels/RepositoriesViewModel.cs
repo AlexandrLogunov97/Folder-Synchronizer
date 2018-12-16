@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using Work1.Models;
 
 namespace Work1.ViewModels
@@ -13,6 +14,16 @@ namespace Work1.ViewModels
     {
         public ObservableCollection<Repository> Repositories { get; set; }
         public Repository SelectedRepository { get; set; }
+        private Command show;
+        public Command Show
+        {
+            get {
+                return show ?? (show = new Command(obj =>
+                {
+                    MessageBox.Show(SelectedRepository.Name);
+                }));
+            }
+        }
         public RepositoriesViewModel()
         {
             this.Repositories = new ObservableCollection<Repository>(new List<Repository>()

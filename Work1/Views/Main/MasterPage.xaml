@@ -20,6 +20,12 @@
                         <ControlTemplate  TargetType="ListBoxItem">
                             <Border s:MasterPage.MenuItem="True" s:MasterPage.MenuItemSource="Views/Repositories/SelectedRepository.xaml" x:Name="border" Height="40" HorizontalAlignment="Stretch">
                                 <Label x:Name="Content" Padding="10,5,5,5" FontSize="{TemplateBinding FontSize}" Content="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}" VerticalContentAlignment="Center"></Label>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseDown">
+                                        <i:InvokeCommandAction
+                                    Command="{Binding Show}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
                             </Border>
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsSelected" Value="true">
@@ -181,7 +187,7 @@
                     </Grid>
                 </Border>
                 <ContentControl Grid.Row="1" x:Name="Repositories">
-                    <ListBox   Background="#626f80" SelectedIndex="0" SelectedItem="{Binding SelectedRepository}" ItemsSource="{Binding Repositories}"  ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+                    <ListBox  Background="#626f80" SelectedIndex="0" SelectedItem="{Binding SelectedRepository}" ItemsSource="{Binding Repositories}"  ScrollViewer.HorizontalScrollBarVisibility="Hidden">
                         <!--<ListBoxItem IsSelected="True" s:MasterPage.MenuItem="True" s:MasterPage.MenuItemSource="Views/CreateRepository/Create.xaml"   Content="Add repository" Foreground="White" FontSize="14"/>
                         <ListBoxItem s:MasterPage.MenuItem="True" s:MasterPage.MenuItemSource="Views/Repositories/Repositories.xaml" Content="Repositories" Background="{x:Null}" Foreground="White" FontSize="14"/>-->
                         <!--<ListBoxItem  Content="Tasks" Background="{x:Null}" Foreground="White" FontSize="14"/>
