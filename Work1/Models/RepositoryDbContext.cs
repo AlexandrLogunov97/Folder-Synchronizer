@@ -11,11 +11,13 @@ namespace Work1.Models
 {
     class RepositoryDbContext:DbContext
     {
-        public RepositoryDbContext()
+        public RepositoryDbContext():base("Repositories")
         {
             //this.Database.Connection. = "System.Data.SQLite";
-           // var connection = ConfigurationManager.ConnectionStrings["Test"].ConnectionString;
-            this.Database.Connection.ConnectionString = "Data Source=E:/Projects/CSharp/Works/Folder-Synchronizer/Work1/App_data/Repositories.db;";
+            // var connection = ConfigurationManager.ConnectionStrings["Test"].ConnectionString;
+            //var con = ConfigurationManager.ConnectionStrings["Repositories"].;
+
+
         }
         public DbSet<Repository> Repositories { get; set; }
     }
