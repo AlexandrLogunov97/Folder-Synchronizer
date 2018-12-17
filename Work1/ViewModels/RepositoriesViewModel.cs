@@ -14,6 +14,9 @@ namespace Work1.ViewModels
     {
         public ObservableCollection<Repository> Repositories { get; set; }
         public Repository SelectedRepository { get; set; }
+
+        RepositoryDbContext dbContext;
+
         private Command show;
         public Command Show
         {
@@ -26,24 +29,26 @@ namespace Work1.ViewModels
         }
         public RepositoriesViewModel()
         {
-            this.Repositories = new ObservableCollection<Repository>(new List<Repository>()
-            {
-                new Repository() { Source="c:/folder/",Target="c:/folder/",SourceType="FS", TargetType="FS",LastSync=DateTime.Now },
-                new Repository() { Source="c:/folder/",Target="c:/folder/",SourceType="FS", TargetType="FS",LastSync=DateTime.Now },
-                new Repository() { Source="c:/folder/",Target="c:/Target/",SourceType="FS", TargetType="FS",LastSync=DateTime.Now },
-                new Repository() { Source="c:/folder/",Target="c:/folder/",SourceType="FS", TargetType="FS",LastSync=DateTime.Now },
-                new Repository() { Source="c:/folder/",Target="c:/folder/",SourceType="FS", TargetType="FS",LastSync=DateTime.Now },
-                new Repository() { Source="c:/folder/",Target="c:/folder/",SourceType="FS", TargetType="FS",LastSync=DateTime.Now },
-                new Repository() { Source="c:/folder/",Target="c:/folder/",SourceType="FS", TargetType="FS",LastSync=DateTime.Now },
-                new Repository() { Source="c:/folder/",Target="c:/folder/",SourceType="FS", TargetType="FS",LastSync=DateTime.Now },
-                new Repository() { Source="c:/folder/",Target="c:/folder/",SourceType="FS", TargetType="FS",LastSync=DateTime.Now },
-                new Repository() { Source="c:/folder/",Target="c:/folder/",SourceType="FS", TargetType="FS",LastSync=DateTime.Now },
-                new Repository() { Source="c:/folder/",Target="c:/folder/",SourceType="FS", TargetType="FS",LastSync=DateTime.Now },
-                new Repository() { Source="c:/folder/",Target="c:/folder/",SourceType="FS", TargetType="FS",LastSync=DateTime.Now },
-                new Repository() { Source="c:/folder/",Target="c:/folder/",SourceType="FS", TargetType="FS",LastSync=DateTime.Now },
-                new Repository() { Source="c:/folder/",Target="c:/folder/",SourceType="FS", TargetType="FS",LastSync=DateTime.Now },
-                new Repository() { Source="c:/folder/",Target="c:/folder/",SourceType="FS", TargetType="FS",LastSync=DateTime.Now }
-            });
+            dbContext = new RepositoryDbContext();
+            this.Repositories = new ObservableCollection<Repository>(dbContext.Repositories.ToList());
+            //this.Repositories = new ObservableCollection<Repository>(new List<Repository>()
+            //{
+            //    new Repository() { Source="c:/folder/",Target="c:/folder/",SourceType="FS", TargetType="FS",LastSync=DateTime.Now },
+            //    new Repository() { Source="c:/folder/",Target="c:/folder/",SourceType="FS", TargetType="FS",LastSync=DateTime.Now },
+            //    new Repository() { Source="c:/folder/",Target="c:/Target/",SourceType="FS", TargetType="FS",LastSync=DateTime.Now },
+            //    new Repository() { Source="c:/folder/",Target="c:/folder/",SourceType="FS", TargetType="FS",LastSync=DateTime.Now },
+            //    new Repository() { Source="c:/folder/",Target="c:/folder/",SourceType="FS", TargetType="FS",LastSync=DateTime.Now },
+            //    new Repository() { Source="c:/folder/",Target="c:/folder/",SourceType="FS", TargetType="FS",LastSync=DateTime.Now },
+            //    new Repository() { Source="c:/folder/",Target="c:/folder/",SourceType="FS", TargetType="FS",LastSync=DateTime.Now },
+            //    new Repository() { Source="c:/folder/",Target="c:/folder/",SourceType="FS", TargetType="FS",LastSync=DateTime.Now },
+            //    new Repository() { Source="c:/folder/",Target="c:/folder/",SourceType="FS", TargetType="FS",LastSync=DateTime.Now },
+            //    new Repository() { Source="c:/folder/",Target="c:/folder/",SourceType="FS", TargetType="FS",LastSync=DateTime.Now },
+            //    new Repository() { Source="c:/folder/",Target="c:/folder/",SourceType="FS", TargetType="FS",LastSync=DateTime.Now },
+            //    new Repository() { Source="c:/folder/",Target="c:/folder/",SourceType="FS", TargetType="FS",LastSync=DateTime.Now },
+            //    new Repository() { Source="c:/folder/",Target="c:/folder/",SourceType="FS", TargetType="FS",LastSync=DateTime.Now },
+            //    new Repository() { Source="c:/folder/",Target="c:/folder/",SourceType="FS", TargetType="FS",LastSync=DateTime.Now },
+            //    new Repository() { Source="c:/folder/",Target="c:/folder/",SourceType="FS", TargetType="FS",LastSync=DateTime.Now }
+            //});
         }
     }
 }

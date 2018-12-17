@@ -9,6 +9,7 @@ using System.IO;
 using Work1.Utils;
 using System.Collections.Specialized;
 using System.Runtime.Serialization.Formatters.Binary;
+using Work1.Models;
 
 namespace Work1.ViewModels
 {
@@ -22,6 +23,8 @@ namespace Work1.ViewModels
         public string SourceFolderPath { get; set; }
         public string TargetFolderPath { get; set; }
         
+        public string RepositoryName { get; set; }
+
         public FtpUser SourceUser { get; set; }
         public FtpUser TargetUser { get; set; }
 
@@ -30,6 +33,8 @@ namespace Work1.ViewModels
 
         private object toCopy;
         readonly string pathToFileBuffer;
+
+        RepositoryDbContext dbContext;
 
         private TypeDerectory typeDerectory;
 
@@ -224,7 +229,14 @@ namespace Work1.ViewModels
                     //CopyFromFSToFtp();
                     // CopyFromFSToFS(new DirectoryInfo(SourceFolderPath),new DirectoryInfo(TargetFolderPath));
                     //CopyFromFtpToFtp(SourceFolderPath, TargetFolderPath);
-                    ViewModel.Get<RepositoriesViewModel>().Repositories.Add(new Models.Repository() { Name = "Name", Source = SourceFolderPath, Target = TargetFolderPath, LastSync = DateTime.Now });
+                    var createdRepository = new Models.Repository() { Name = RepositoryName, Source = SourceFolderPath, Target = TargetFolderPath,SourceType="FS",TargetType="FS", LastSync = DateTime.Now };
+                    dbContext.Repositories.Add(createdRepository);
+                    
+                    ViewModel.Get<RepositoriesViewModel>().Repositories.Add(createdRepository);
+                    dbContext.SaveChanges();
+                },
+                obj=> {
+                    return !dbContext.Repositories.ToList().Exists(x => x.Name == RepositoryName) && SourceFolderPath!="" && TargetFolderPath!="" && RepositoryName!="";
                 }));
             }
         }
@@ -246,6 +258,7 @@ namespace Work1.ViewModels
         }
         public SelectDerectoryViewModel()
         {
+            dbContext = new RepositoryDbContext();
             pathToFileBuffer = String.Format("{0}/{1}", Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).FullName).FullName, "FileBuffer");
             pathToFileBuffer = pathToFileBuffer.Replace('\\', '/');
             this.SourceFtpUri= "ftp://192.168.1.34:3721/";
