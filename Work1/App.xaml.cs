@@ -20,6 +20,8 @@ namespace Work1
     {
         public App()
         {
+           // MessageBox.Show(con);
+
         }
     }
 }
