@@ -154,7 +154,7 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <Grid x:Name="Menu" s:CloseMenu.Menu="True" Width="200" MinWidth="0" MaxWidth="200">
+            <Grid x:Name="Repositories" s:CloseMenu.Menu="True" Width="200" MinWidth="0" MaxWidth="200">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
                         <RowDefinition/>
@@ -162,7 +162,7 @@
                 <Border Visibility="Collapsed" Grid.Row="0" Background="#FF626F80">
                     <TextBox Height="30" Margin="5" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="#FFE9EBEF" Foreground="#FFE9EBEF"></TextBox>
                 </Border>
-                <Border Grid.Row="0" Background="#FF626F80" BorderBrush="{Binding ElementName=DerictorySearch,Path=BorderBrush}" >
+                <Border Grid.Row="0" Background="#FF626F80" >
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
@@ -171,22 +171,22 @@
                         <Grid.RowDefinitions>
                             <RowDefinition></RowDefinition>
                         </Grid.RowDefinitions>
-                        <TextBox Grid.ColumnSpan="2" BorderBrush="#FFE9EBEF" Background="#FF626F80" Foreground="#FFE9EBEF" x:Name="DerictorySearch" Margin="5,5,5,5" Height="30" VerticalContentAlignment="Center" FontSize="16" Padding="0,0,30,0">
+                        <TextBox Grid.ColumnSpan="2" x:Name="DerictorySearch" BorderBrush="#FFE9EBEF" Background="#FF626F80" Foreground="#FFE9EBEF" Margin="5,5,5,5" Height="30" VerticalContentAlignment="Center" FontSize="16" Padding="0,0,30,0">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="KeyDown">
                                     <i:InvokeCommandAction
-                            Command="{Binding Search}" CommandParameter="{Binding ElementName=DerictorySearch,Path=Text}"/>
+                            Command="{Binding Search}" CommandParameter="{Binding ElementName=DerictorySearch,Path=Text,Mode=TwoWay}"/>
                                 </i:EventTrigger>
                                 <i:EventTrigger EventName="KeyUp">
                                     <i:InvokeCommandAction
-                            Command="{Binding Search}" CommandParameter="{Binding ElementName=DerictorySearch,Path=Text}"/>
+                            Command="{Binding Search}" CommandParameter="{Binding ElementName=DerictorySearch,Path=Text,Mode=TwoWay}"/>
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </TextBox>
                         <Image Height="30" Width="30" Grid.Column="1"  Source="/Work1;component/Content/Images/searchLight.png" ></Image>
                     </Grid>
                 </Border>
-                <ContentControl Grid.Row="1" x:Name="Repositories">
+                <ContentControl Grid.Row="1" >
                     <ListBox  Background="#626f80" SelectedIndex="0" SelectedItem="{Binding SelectedRepository}" ItemsSource="{Binding Repositories}"  ScrollViewer.HorizontalScrollBarVisibility="Hidden">
                         <!--<ListBoxItem IsSelected="True" s:MasterPage.MenuItem="True" s:MasterPage.MenuItemSource="Views/CreateRepository/Create.xaml"   Content="Add repository" Foreground="White" FontSize="14"/>
                         <ListBoxItem s:MasterPage.MenuItem="True" s:MasterPage.MenuItemSource="Views/Repositories/Repositories.xaml" Content="Repositories" Background="{x:Null}" Foreground="White" FontSize="14"/>-->

@@ -15,6 +15,8 @@ namespace Work1.ViewModels
         public ObservableCollection<Repository> Repositories { get; set; }
         public Repository SelectedRepository { get; set; }
 
+        public string SearchQuery { get; set; }
+
         RepositoryDbContext dbContext;
 
         private Command show;
@@ -24,6 +26,19 @@ namespace Work1.ViewModels
                 return show ?? (show = new Command(obj =>
                 {
                     MessageBox.Show(SelectedRepository.Name);
+                }));
+            }
+        }
+
+        private Command search;
+        public Command Search
+        {
+            get
+            {
+                return search ?? (search = new Command(obj =>
+                {
+                    var query = obj as string;
+                    MessageBox.Show(query);
                 }));
             }
         }
