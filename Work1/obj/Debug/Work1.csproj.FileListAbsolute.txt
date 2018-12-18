@@ -98,7 +98,6 @@ C:\Users\Наталья\Desktop\Folder-Synchronizer\Work1\obj\Debug\MainWindow.g
 C:\Users\Наталья\Desktop\Folder-Synchronizer\Work1\obj\Debug\Views\CreateRepository\Create.g.cs
 C:\Users\Наталья\Desktop\Folder-Synchronizer\Work1\obj\Debug\Views\FtpViewer\CreateDerectory.g.cs
 C:\Users\Наталья\Desktop\Folder-Synchronizer\Work1\obj\Debug\Views\FtpViewer\RenameDerectory.g.cs
-C:\Users\Наталья\Desktop\Folder-Synchronizer\Work1\bin\Debug\S.pdb
 C:\Users\Наталья\Desktop\Folder-Synchronizer\Work1\obj\Debug\MainWindow.baml
 C:\Users\Наталья\Desktop\Folder-Synchronizer\Work1\obj\Debug\Views\CreateRepository\Create.baml
 C:\Users\Наталья\Desktop\Folder-Synchronizer\Work1\obj\Debug\Views\FtpViewer\CreateDerectory.baml
@@ -115,3 +114,13 @@ E:\Projects\CSharp\Works\Folder-Synchronizer\Work1\bin\Debug\EntityFramework.Sql
 E:\Projects\CSharp\Works\Folder-Synchronizer\Work1\bin\Debug\System.Data.SQLite.xml
 E:\Projects\CSharp\Works\Folder-Synchronizer\Work1\bin\Debug\System.Data.SQLite.dll.config
 E:\Projects\CSharp\Works\Folder-Synchronizer\Work1\obj\Debug\Work1.csprojAssemblyReference.cache
+C:\Users\Наталья\Desktop\Folder-Synchronizer\Work1\bin\Debug\EntityFramework.dll
+C:\Users\Наталья\Desktop\Folder-Synchronizer\Work1\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Наталья\Desktop\Folder-Synchronizer\Work1\bin\Debug\System.Data.SQLite.dll
+C:\Users\Наталья\Desktop\Folder-Synchronizer\Work1\bin\Debug\System.Data.SQLite.EF6.dll
+C:\Users\Наталья\Desktop\Folder-Synchronizer\Work1\bin\Debug\System.Data.SQLite.Linq.dll
+C:\Users\Наталья\Desktop\Folder-Synchronizer\Work1\bin\Debug\EntityFramework.xml
+C:\Users\Наталья\Desktop\Folder-Synchronizer\Work1\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Наталья\Desktop\Folder-Synchronizer\Work1\bin\Debug\System.Data.SQLite.xml
+C:\Users\Наталья\Desktop\Folder-Synchronizer\Work1\obj\Debug\Views\Repositories\SelectedRepository.g.cs
+C:\Users\Наталья\Desktop\Folder-Synchronizer\Work1\obj\Debug\Views\Repositories\SelectedRepository.baml

@@ -27,6 +27,26 @@ namespace Work1.ViewModels
                 }));
             }
         }
+
+        private Command delete;
+        public Command Delete
+        {
+            get
+            {
+                return delete ?? (delete = new Command(obj =>
+                {
+
+                    dbContext.Entry(SelectedRepository).State = System.Data.Entity.EntityState.Deleted;
+                    int status=dbContext.SaveChanges();
+                    Repositories.Remove(SelectedRepository);
+                    if (status == 1)
+                        MessageBox.Show("ok");
+                },
+                obj => {
+                    return !(SelectedRepository == null); 
+                }));
+            }
+        }
         public RepositoriesViewModel()
         {
             dbContext = new RepositoryDbContext();

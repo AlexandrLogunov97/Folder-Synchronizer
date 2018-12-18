@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-E:\Projects\CSharp\Works\Folder-Synchronizer\Work1\obj\Debug\
+C:\Users\Наталья\Desktop\Folder-Synchronizer\Work1\obj\Debug\
 Work1
 none
 false
 DEBUG;TRACE
-E:\Projects\CSharp\Works\Folder-Synchronizer\Work1\App.xaml
+C:\Users\Наталья\Desktop\Folder-Synchronizer\Work1\App.xaml
 10-132352843
 
-25949618443
-26-945429309
+25928229039
+26188949057
 MainWindow.xaml;Views\CreateRepository\Create.xaml;Views\CreateRepository\SelectTypeConnection.xaml;Views\FileSystemViewer\FileSystemViewer.xaml;Views\FtpViewer\CreateDerectory.xaml;Views\FtpViewer\FtpViewer.xaml;Views\FtpViewer\RenameDerectory.xaml;Views\Main\MasterPage.xaml;Views\Repositories\Repositories.xaml;Views\Repositories\SelectedRepository.xaml;
 
 True

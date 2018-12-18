@@ -16,8 +16,6 @@ namespace Work1.Models
             //this.Database.Connection. = "System.Data.SQLite";
             // var connection = ConfigurationManager.ConnectionStrings["Test"].ConnectionString;
             //var con = ConfigurationManager.ConnectionStrings["Repositories"].;
-
-
         }
         public DbSet<Repository> Repositories { get; set; }
     }

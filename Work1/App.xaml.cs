@@ -20,9 +20,9 @@ namespace Work1
     {
         public App()
         {
-            //var con= 
-            //MessageBox.Show(con);
-
+            string executable = System.Reflection.Assembly.GetExecutingAssembly().Location;
+            string path = String.Format("{0}\\{1}", System.IO.Directory.GetParent(executable).Parent.Parent.FullName,"App_data");
+            AppDomain.CurrentDomain.SetData("DataDirectory", path);
         }
     }
 }

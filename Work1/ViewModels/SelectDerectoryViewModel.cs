@@ -18,6 +18,11 @@ namespace Work1.ViewModels
         Source,
         Target
     }
+    enum TypeCnnection
+    {
+        Ftp=1,
+        FileSystem=2
+    }
     class SelectDerectoryViewModel : ViewModel
     {
         public string SourceFolderPath { get; set; }
@@ -34,9 +39,14 @@ namespace Work1.ViewModels
         private object toCopy;
         readonly string pathToFileBuffer;
 
+        private TypeCnnection source;
+        private TypeCnnection target;
+
+        public bool SynchronizeImmediately { get; set; }
+
         RepositoryDbContext dbContext;
 
-        private TypeDerectory typeDerectory;
+        private TypeDerectory typeDirectory;
 
         private static long GetDirectorySize(string folderPath)
         {
@@ -55,8 +65,8 @@ namespace Work1.ViewModels
                     if (dialog.ShowDialog() == DialogResult.OK)
                     {
                         SourceFolderPath = dialog.SelectedPath;
-                        
-                        typeDerectory = TypeDerectory.Source;
+                        source = TypeCnnection.FileSystem;
+                        typeDirectory = TypeDerectory.Source;
                     }
                 }));
             }
@@ -73,24 +83,27 @@ namespace Work1.ViewModels
                     if (dialog.ShowDialog() == DialogResult.OK)
                     {
                         TargetFolderPath = dialog.SelectedPath;
-                        typeDerectory = TypeDerectory.Target;
+                        target = TypeCnnection.FileSystem;
+                        typeDirectory = TypeDerectory.Target;
                     }
                 }));
             }
         }
 
-        private Command selectSourceFtpDerectory;
+        private Command selectSourceFtpDirectory;
         public Command SelectSourceFtpDerectory
         {
             get
             {
-                return selectSourceFtpDerectory ?? (selectSourceFtpDerectory = new Command(obj =>
+                return selectSourceFtpDirectory ?? (selectSourceFtpDirectory = new Command(obj =>
                 {
                     ViewModel.Get<FtpViewModel>().Connect(SourceFtpUri,SourceUser);
-                    typeDerectory = TypeDerectory.Source;
+                    source = TypeCnnection.Ftp;
+                    typeDirectory = TypeDerectory.Source;
                 }));
             }
         }
+
         private Command selectTargetFtpDerectory;
         public Command SelectTargetFtpDerectory
         {
@@ -99,10 +112,12 @@ namespace Work1.ViewModels
                 return selectTargetFtpDerectory ?? (selectTargetFtpDerectory = new Command(obj =>
                 {
                     ViewModel.Get<FtpViewModel>().Connect(TargetFtpUri,TargetUser);
-                    typeDerectory = TypeDerectory.Target;
+                    target = TypeCnnection.Ftp;
+                    typeDirectory = TypeDerectory.Target;
                 }));
             }
         }
+
         public byte[] ObjectToByteArray(Object obj)
         {
             BinaryFormatter bf = new BinaryFormatter();
@@ -133,7 +148,6 @@ namespace Work1.ViewModels
         {
             try
             {
-                //MessageBox.Show(source + " " + destination);
                 FtpClient ftpSource = new FtpClient(source, new FtpUser());
                 FtpClient ftpDestination = new FtpClient(destination, new FtpUser());
 
@@ -144,7 +158,6 @@ namespace Work1.ViewModels
                     {
                         ftpSource.DownloadFile(file.Name, string.Format("{1}/{0}", file.Name, pathToFileBuffer));
                         ftpDestination.UploadFile(string.Format("{1}/{0}", file.Name, pathToFileBuffer), file.Name);
-                        //File.Delete(string.Format("{1}/{0}", file.Name, pathToFileBuffer));
                     }
                 }
 
@@ -233,16 +246,39 @@ namespace Work1.ViewModels
                     dbContext.Repositories.Add(createdRepository);
                     
                     ViewModel.Get<RepositoriesViewModel>().Repositories.Add(createdRepository);
+                    if(SynchronizeImmediately)
+                    {
+                        if(source==TypeCnnection.FileSystem && target==TypeCnnection.FileSystem)
+                        {
+                            CopyFromFSToFS(new DirectoryInfo(SourceFolderPath), new DirectoryInfo(TargetFolderPath));
+                        }
+                        else if (source == TypeCnnection.Ftp && target == TypeCnnection.Ftp)
+                        {
+                            CopyFromFtpToFtp(SourceFolderPath, TargetFolderPath);
+                        }
+                        else if (source == TypeCnnection.FileSystem && target == TypeCnnection.Ftp)
+                        {
+                            CopyFromFSToFS(new DirectoryInfo(SourceFolderPath), new DirectoryInfo(TargetFolderPath));
+                        }
+                        else if (source == TypeCnnection.Ftp && target == TypeCnnection.FileSystem)
+                        {
+                            CopyFromFSToFS(new DirectoryInfo(SourceFolderPath), new DirectoryInfo(TargetFolderPath));
+                        }
+                    }
                     dbContext.SaveChanges();
                 },
-                obj=> {
-                    return !dbContext.Repositories.ToList().Exists(x => x.Name == RepositoryName) && SourceFolderPath!="" && TargetFolderPath!="" && RepositoryName!="";
-                }));
+                obj =>
+                {
+                    bool isUnique=!string.IsNullOrEmpty(RepositoryName)? dbContext.Repositories.ToList().Exists(x => x.Name.ToLower() == RepositoryName.ToLower()) : false;
+                    bool notEqual=!string.IsNullOrEmpty(SourceFolderPath) && !string.IsNullOrEmpty(TargetFolderPath)? SourceFolderPath == TargetFolderPath: false;
+                    return !isUnique && !notEqual;
+                }
+                ));
             }
         }
         public void SetSelectedPath(string path)
         {
-            switch (typeDerectory)
+            switch (typeDirectory)
             {
                 case TypeDerectory.Source:
                     {
