@@ -25,7 +25,13 @@ namespace Work1.Views.Repositories
         public SelectedRepository()
         {
             InitializeComponent();
+            this.Initialized += SelectedRepository_Initialized;
             this.DataContext = ViewModel.Get<RepositoriesViewModel>();
+        }
+
+        private void SelectedRepository_Initialized(object sender, EventArgs e)
+        {
+            
         }
     }
 }

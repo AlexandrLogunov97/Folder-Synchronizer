@@ -16,7 +16,10 @@ namespace Work1.Utils
         Folder=2,
         Back=3
     }
-    
+    public interface IFtpViewerResult
+    {
+        void SetSelectedPath(string path);
+    }
     class FtpClient
     {
         private string password;

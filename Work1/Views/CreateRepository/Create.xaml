@@ -250,7 +250,7 @@
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
                 <CheckBox Grid.Column="1" VerticalAlignment="Center" IsChecked="{Binding SynchronizeImmediately}">Synchronize immediately</CheckBox>
-                <Button Command="{Binding Create}" Grid.Column="2" Height="30" Margin="5" Width="100">Create</Button>
+                <Button s:Navigation.Uri="/Views/Repositories/SelectedRepository.xaml" Command="{Binding Create}" Grid.Column="2" Height="30" Margin="5" Width="100">Create</Button>
             </Grid>
         </Grid>
     </Grid>
