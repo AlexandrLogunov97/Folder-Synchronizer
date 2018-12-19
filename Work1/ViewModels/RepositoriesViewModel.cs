@@ -162,12 +162,12 @@ namespace Work1.ViewModels
             }
         }
 
-        private Command change;
-        public Command Change
+        private NavigationCommand change;
+        public NavigationCommand Change
         {
             get
             {
-                return change ?? (change = new Command(obj =>
+                return change ?? (change = new NavigationCommand(obj =>
                 {
                     if (SelectedRepository != null)
                     {
@@ -187,7 +187,7 @@ namespace Work1.ViewModels
                 obj =>
                 {
                         bool unique = false;
-                        if (!string.IsNullOrEmpty(RepositoryName))
+                        if (!string.IsNullOrEmpty(RepositoryName) && SelectedRepository!=null)
                         {
                             if (dbContext.Repositories.ToList().Exists(x => x.Name.Trim().ToLower() == RepositoryName.Trim().ToLower() && x.Id==SelectedRepository.Id))
                                 unique = false;
