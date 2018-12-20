@@ -170,13 +170,15 @@
                         <StackPanel>
                             <Border x:Name="FtpPanel" >
                                 <StackPanel>
-                                    <Label  >Uri</Label>
+                                    <Label>Uri</Label>
                                     <TextBox Text="{Binding SourceFtpUri}" BorderBrush="LightGray" Height="30" Margin="0,5,0,0" VerticalContentAlignment="Center" ></TextBox>
-                                    <Label >User name</Label>
-                                    <TextBox  BorderBrush="LightGray" Height="30" Margin="0,5,0,0" VerticalContentAlignment="Center" ></TextBox>
+                                    <Label>User name</Label>
+                                    <TextBox Text="{Binding SourceUser.User}" BorderBrush="LightGray" Height="30" Margin="0,5,0,0" VerticalContentAlignment="Center" ></TextBox>
                                     <Label >Password</Label>
-                                    <TextBox BorderBrush="LightGray" Height="30" Margin="0,5,0,0" VerticalContentAlignment="Center" ></TextBox>
-                                    <Button s:Navigation.Attach="True" s:Navigation.Uri="Views/FtpViewer/ftpViewer.xaml" Command="{Binding SelectSourceFtpDerectory}" CommandParameter="source" Height="30" Margin="0,5,0,0">Browse</Button>
+                                    <TextBox Text="{Binding SourceUser.Password}" Visibility="Collapsed" BorderBrush="LightGray" Height="30" Margin="0,5,0,0" VerticalContentAlignment="Center" ></TextBox>
+                                    <PasswordBox x:Name="SourceUser" s:Password.Attach="True"  s:Password.Password="{Binding Text, ElementName=plain, Mode=TwoWay}" BorderBrush="LightGray" Height="30" Margin="0,5,0,0" VerticalContentAlignment="Center"></PasswordBox>
+                                    <TextBox x:Name="plain" Visibility="Collapsed" Text="{Binding SourceUser.Password,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                    <Button s:Navigation.Uri="Views/FtpViewer/ftpViewer.xaml" Command="{Binding SelectSourceFtpDerectory}" CommandParameter="source" Height="30" Margin="0,5,0,0">Browse</Button>
                                 </StackPanel>
                             </Border>
                         </StackPanel>
@@ -223,9 +225,11 @@
                                     <Label  >Uri</Label>
                                     <TextBox Text="{Binding TargetFtpUri}" BorderBrush="LightGray" Height="30" Margin="0,5,0,0" VerticalContentAlignment="Center"></TextBox>
                                     <Label >User name</Label>
-                                    <TextBox BorderBrush="LightGray" Height="30" Margin="0,5,0,0" VerticalContentAlignment="Center" ></TextBox>
+                                    <TextBox Text="{Binding TargetUser.User}" BorderBrush="LightGray" Height="30" Margin="0,5,0,0" VerticalContentAlignment="Center" ></TextBox>
                                     <Label >Password</Label>
-                                    <TextBox BorderBrush="LightGray" Height="30" Margin="0,5,0,0" VerticalContentAlignment="Center" ></TextBox>
+                                    <TextBox Text="{Binding TargetUser.Password}"  Visibility="Collapsed"></TextBox>
+                                    <PasswordBox x:Name="TargetUser" s:Password.Attach="True"  s:Password.Password="{Binding Text, ElementName=plain1, Mode=TwoWay}" BorderBrush="LightGray" Height="30" Margin="0,5,0,0" VerticalContentAlignment="Center"></PasswordBox>
+                                    <TextBox x:Name="plain1" Visibility="Collapsed" Text="{Binding TargetUser.Password,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
                                     <Button  s:Navigation.Uri="Views/FtpViewer/ftpViewer.xaml" Command="{Binding SelectTargetFtpDerectory}" CommandParameter="target" Height="30" Margin="0,5,0,0">Browse</Button>
                                 </StackPanel>
                             </Border>

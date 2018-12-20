@@ -124,3 +124,4 @@ C:\Users\Наталья\Desktop\Folder-Synchronizer\Work1\bin\Debug\System.Data.
 C:\Users\Наталья\Desktop\Folder-Synchronizer\Work1\obj\Debug\Views\Repositories\SelectedRepository.g.cs
 C:\Users\Наталья\Desktop\Folder-Synchronizer\Work1\obj\Debug\Views\Repositories\SelectedRepository.baml
 C:\Users\Наталья\Desktop\Folder-Synchronizer\Work1\bin\Debug\S.pdb
+E:\Projects\CSharp\Works\Folder-Synchronizer\Work1\obj\Debug\Work1.csprojAssemblyReference.cache

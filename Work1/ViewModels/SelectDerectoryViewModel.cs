@@ -50,7 +50,7 @@ namespace Work1.ViewModels
             DirectoryInfo di = new DirectoryInfo(folderPath);
             return di.EnumerateFiles("*.*", SearchOption.AllDirectories).Sum(fi => fi.Length);
         }
-
+        #region Select directory
         private Command selectSourceDirectory;
         public Command SelectSourceDirectory
         {
@@ -58,12 +58,19 @@ namespace Work1.ViewModels
             {
                 return selectSourceDirectory ?? (selectSourceDirectory = new Command(obj =>
                 {
-                    FolderBrowserDialog dialog = new FolderBrowserDialog();
-                    if (dialog.ShowDialog() == DialogResult.OK)
+                    try
                     {
-                        SourceFolderPath = dialog.SelectedPath;
-                        source = TypeCnnection.FileSystem;
-                        typeDirectory = TypeDerectory.Source;
+                        FolderBrowserDialog dialog = new FolderBrowserDialog();
+                        if (dialog.ShowDialog() == DialogResult.OK)
+                        {
+                            SourceFolderPath = dialog.SelectedPath;
+                            source = TypeCnnection.FileSystem;
+                            typeDirectory = TypeDerectory.Source;
+                        }
+                    }
+                    catch(Exception)
+                    {
+
                     }
                 }));
             }
@@ -76,44 +83,68 @@ namespace Work1.ViewModels
             {
                 return selectTargetDirectory ?? (selectTargetDirectory = new Command(obj =>
                 {
-                    FolderBrowserDialog dialog = new FolderBrowserDialog();
-                    if (dialog.ShowDialog() == DialogResult.OK)
+                    try
                     {
-                        TargetFolderPath = dialog.SelectedPath;
-                        target = TypeCnnection.FileSystem;
-                        typeDirectory = TypeDerectory.Target;
+                        FolderBrowserDialog dialog = new FolderBrowserDialog();
+                        if (dialog.ShowDialog() == DialogResult.OK)
+                        {
+                            TargetFolderPath = dialog.SelectedPath;
+                            target = TypeCnnection.FileSystem;
+                            typeDirectory = TypeDerectory.Target;
+                        }
+                    }
+                    catch(Exception ex)
+                    {
                     }
                 }));
             }
         }
 
-        private Command selectSourceFtpDirectory;
-        public Command SelectSourceFtpDerectory
+        private NavigationCommand selectSourceFtpDirectory;
+        public NavigationCommand SelectSourceFtpDerectory
         {
             get
             {
-                return selectSourceFtpDirectory ?? (selectSourceFtpDirectory = new Command(obj =>
+                return selectSourceFtpDirectory ?? (selectSourceFtpDirectory = new NavigationCommand(obj =>
                 {
-                    ViewModel.Get<FtpViewModel>().Connect(SourceFtpUri,SourceUser,this);
-                    source = TypeCnnection.Ftp;
-                    typeDirectory = TypeDerectory.Source;
+                    try
+                    {
+                        
+                        source = TypeCnnection.Ftp;
+                        typeDirectory = TypeDerectory.Source;
+                        SelectSourceFtpDerectory.CanCantinue = ViewModel.Get<FtpViewModel>().Connect(SourceFtpUri, SourceUser, this);
+ 
+                    }
+                    catch(Exception ex)
+                    {
+                        SelectSourceFtpDerectory.CanCantinue = false;
+                    }
                 }));
             }
         }
 
-        private Command selectTargetFtpDerectory;
-        public Command SelectTargetFtpDerectory
+        private NavigationCommand selectTargetFtpDerectory;
+        public NavigationCommand SelectTargetFtpDerectory
         {
             get
             {
-                return selectTargetFtpDerectory ?? (selectTargetFtpDerectory = new Command(obj =>
+                return selectTargetFtpDerectory ?? (selectTargetFtpDerectory = new NavigationCommand(obj =>
                 {
-                    ViewModel.Get<FtpViewModel>().Connect(TargetFtpUri,TargetUser,this);
-                    target = TypeCnnection.Ftp;
-                    typeDirectory = TypeDerectory.Target;
+                    try
+                    {
+                        
+                        target = TypeCnnection.Ftp;
+                        typeDirectory = TypeDerectory.Target;
+                        SelectTargetFtpDerectory.CanCantinue = ViewModel.Get<FtpViewModel>().Connect(TargetFtpUri, TargetUser, this);
+                    }
+                    catch(Exception)
+                    {
+                        SelectTargetFtpDerectory.CanCantinue = false;
+                    }
                 }));
             }
         }
+        #endregion
 
         private Command create;
         public Command Create
@@ -155,6 +186,7 @@ namespace Work1.ViewModels
                 ));
             }
         }
+
         public void SetSelectedPath(string path)
         {
 
@@ -178,10 +210,10 @@ namespace Work1.ViewModels
         {
             dbContext = new RepositoryDbContext();
 
-            this.SourceFtpUri = "ftp://192.168.1.100:3721/";
-            this.TargetFtpUri= "ftp://192.168.1.100:3721/";
+            this.SourceFtpUri = "ftp://192.168.1.34:3721/";
+            this.TargetFtpUri= "ftp://192.168.1.34:3721/";
             this.SourceUser = new FtpUser() { User="user",Password="password"};
-            this.TargetUser = new FtpUser() { };
+            this.TargetUser = new FtpUser() { User = "user", Password = "password" };
         }
     }
 }
