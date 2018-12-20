@@ -5,8 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Work1"
         mc:Ignorable="d"
-        MinWidth="1002" MinHeight="489"  Height="489" Width="1002" x:Name="win" BorderThickness="0" Title="{Binding ElementName=win,Path=Height}" Icon="Content/Images/repIco.ico" WindowStartupLocation="CenterScreen">
-    <Frame NavigationUIVisibility="Hidden" Source="/Work1;component/Views/Main/MasterPage.xaml">
-        
-    </Frame>
+        MinWidth="1002" MinHeight="489"  Height="489" Width="1002" x:Name="win" BorderThickness="0" Title="Снхронизация папок" Icon="Content/Images/repIco.ico" WindowStartupLocation="CenterScreen">
+    <Frame NavigationUIVisibility="Hidden" Source="/Work1;component/Views/Main/MasterPage.xaml"/>
 </Window>

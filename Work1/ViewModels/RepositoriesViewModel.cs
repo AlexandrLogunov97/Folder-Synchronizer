@@ -18,8 +18,10 @@ namespace Work1.ViewModels
 
         public ObservableCollection<Repository> Repositories { get; set; }
 
+        #region Source and target path
         public string SourceFolderPath { get; set; }
         public string TargetFolderPath { get; set; }
+        #endregion
 
         public string RepositoryName { get; set; }
 
@@ -27,10 +29,11 @@ namespace Work1.ViewModels
 
         public FtpUser SourceUser { get; set; }
         public FtpUser TargetUser { get; set; }
-
+        #region Ftp uri's
         public string SourceFtpUri { get; set; }
         public string TargetFtpUri { get; set; }
-
+        #endregion
+        #region flags
         public bool SourceIsReadOnly { get; set; }
         public bool TargetIsReadOnly { get; set; }
 
@@ -39,10 +42,13 @@ namespace Work1.ViewModels
 
         public bool SourceIsFTP { get; set; }
         public bool TargetIsFTP { get; set; }
+        #endregion
+        private RepositoryDbContext dbContext;
 
         private string SourceType;
         private string TargetType;
 
+        #region Select repository
         private Command selectSourceDirectory;
         public Command SelectSourceDirectory
         {
@@ -106,6 +112,7 @@ namespace Work1.ViewModels
                 }));
             }
         }
+        #endregion
 
         private Repository selectedRepository;
         public Repository SelectedRepository
@@ -147,20 +154,6 @@ namespace Work1.ViewModels
         }
 
         public string SearchQuery { get; set; }
-
-        RepositoryDbContext dbContext;
-
-        private Command show;
-        public Command Show
-        {
-            get
-            {
-                return show ?? (show = new Command(obj =>
-                {
-
-                }));
-            }
-        }
 
         private NavigationCommand change;
         public NavigationCommand Change
@@ -235,6 +228,17 @@ namespace Work1.ViewModels
                     string result = sync.Synchronize(SelectedRepository.Source, SelectedRepository.Target);
 
                     System.Windows.MessageBox.Show(result);
+                },obj=> {
+                    bool unique = false;
+                    if (!string.IsNullOrEmpty(RepositoryName) && SelectedRepository != null)
+                    {
+                        if (dbContext.Repositories.ToList().Exists(x => x.Name.Trim().ToLower() == RepositoryName.Trim().ToLower() && x.Id == SelectedRepository.Id))
+                            unique = false;
+                        else
+                            unique = true;
+                    }
+                    bool notEqual = !string.IsNullOrEmpty(SourceFolderPath) && !string.IsNullOrEmpty(TargetFolderPath) ? !(SourceFolderPath == TargetFolderPath) : false;
+                    return !string.IsNullOrEmpty(RepositoryName)  && notEqual;
                 }));
             }
         }
@@ -247,20 +251,27 @@ namespace Work1.ViewModels
                 return delete ?? (delete = new NavigationCommand(obj =>
                 {
 
-                    dbContext.Entry(SelectedRepository).State = System.Data.Entity.EntityState.Deleted;
-                    int status = dbContext.SaveChanges();
+                    try
+                    {
+                        dbContext.Entry(SelectedRepository).State = System.Data.Entity.EntityState.Deleted;
+                        int status = dbContext.SaveChanges();
 
-                    if (status == 1)
+                        if (status == 1)
+                        {
+
+                            int index = Repositories.IndexOf(SelectedRepository);
+                            Repositories.Remove(SelectedRepository);
+                            if (index > 0)
+                                SelectedRepository = Repositories[index - 1];
+                            if (Repositories.Count == 0)
+                            {
+                                Delete.CanCantinue = true;
+                            }
+                        }
+                    }
+                    catch(Exception ex)
                     {
 
-                        int index = Repositories.IndexOf(SelectedRepository);
-                        Repositories.Remove(SelectedRepository);
-                        if (index>0)
-                            SelectedRepository = Repositories[index-1];
-                        if(Repositories.Count==0)
-                        {
-                            Delete.CanCantinue = true;
-                        }
                     }
                 },
                 obj =>
@@ -285,6 +296,7 @@ namespace Work1.ViewModels
                     }
             }
         }
+
         public RepositoriesViewModel()
         {
             dbContext = new RepositoryDbContext();

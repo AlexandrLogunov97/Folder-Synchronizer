@@ -113,7 +113,6 @@ E:\Projects\CSharp\Works\Folder-Synchronizer\Work1\bin\Debug\EntityFramework.xml
 E:\Projects\CSharp\Works\Folder-Synchronizer\Work1\bin\Debug\EntityFramework.SqlServer.xml
 E:\Projects\CSharp\Works\Folder-Synchronizer\Work1\bin\Debug\System.Data.SQLite.xml
 E:\Projects\CSharp\Works\Folder-Synchronizer\Work1\bin\Debug\System.Data.SQLite.dll.config
-E:\Projects\CSharp\Works\Folder-Synchronizer\Work1\obj\Debug\Work1.csprojAssemblyReference.cache
 C:\Users\Наталья\Desktop\Folder-Synchronizer\Work1\bin\Debug\EntityFramework.dll
 C:\Users\Наталья\Desktop\Folder-Synchronizer\Work1\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\Наталья\Desktop\Folder-Synchronizer\Work1\bin\Debug\System.Data.SQLite.dll

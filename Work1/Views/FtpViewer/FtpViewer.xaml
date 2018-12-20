@@ -125,17 +125,11 @@
                         <ColumnDefinition/>
                         <ColumnDefinition Width="auto"/>
                     </Grid.ColumnDefinitions>
-                    <Button s:Navigation.Uri="Views/FtpViewer/CreateDerectory.xaml" Height="30" Margin="5,5,5,5" Grid.Column="0" Width="30">
-                        <Image Source="/Work1;component/Content/Images/AddDirectory.png"></Image>
-                    </Button>
-                    <Button Height="30" Margin="0,5,5,5" Command="{Binding Delete}" Grid.Column="1" Width="30">
-                        <Image Source="/Work1;component/Content/Images/DeleteDerectory.png"></Image>
-                    </Button>
-                    <Button s:Navigation.Uri="Views/FtpViewer/RenameDerectory.xaml" Command="{Binding SelectRenamedDerectory}" Height="30" Margin="0,5,5,5" Grid.Column="2" Width="30">
-                        <Image Source="/Work1;component/Content/Images/renameDerectory.png"></Image>
-                    </Button>
-                    <Button  Command="{Binding Refresh}" Height="30" Margin="0,5,5,5" Grid.Column="4" Width="30">
-                        <Image Source="/Work1;component/Content/Images/refresh.png"></Image>
+                    <Button Content="Create" s:Navigation.Uri="Views/FtpViewer/CreateDerectory.xaml" Height="30" Margin="5,5,5,5" Grid.Column="0" Width="57"/>
+                    <Button Content="Remove" Height="30" Margin="0,5,5,5" Command="{Binding Delete}" Grid.Column="1" Width="57"/>
+                    <Button Content="Rename" s:Navigation.Uri="Views/FtpViewer/RenameDerectory.xaml" Command="{Binding SelectRenamedDerectory}" Height="30" Margin="0,5,5,5" Grid.Column="2" Width="57"/>
+                    <Button  Command="{Binding Refresh}" Height="30" Margin="0,5,5,5" Grid.Column="4" Width="57">
+                        Reload
                     </Button>
                 </Grid>
             </Grid>

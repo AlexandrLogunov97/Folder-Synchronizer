@@ -132,7 +132,6 @@
                         </Grid.ColumnDefinitions>
                         <Button Height="30" Margin="5">Delete</Button>
                     </Grid>
-                    
                 </Grid>
             </Grid>
         </Grid>

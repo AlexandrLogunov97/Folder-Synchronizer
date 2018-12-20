@@ -180,22 +180,21 @@ namespace Work1.ViewModels
                 }));
             }
         }
-        private NavigationCommand delete;
-        public NavigationCommand Delete
+        private Command delete;
+        public Command Delete
         {
             get
             {
-                return delete ?? (delete = new NavigationCommand(obj =>
+                return delete ?? (delete = new Command(obj =>
                 {
                     try
                     {
                         ftpClient.RemoveDirectory(SelectedDirectory.Name);
                         reload();
-                        Delete.CanCantinue = true;
                     }
                     catch (Exception ex)
                     {
-                        Rename.CanCantinue = false;
+                       
                     }
                 },
                 obj =>
