@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>KindOfMagic</id>
+    <version>1.3.1</version>
+    <title>Kind Of Magic</title>
+    <authors>Lex Lavnikov</authors>
+    <owners>Lex Lavnikov</owners>
+    <projectUrl>http://github.com/demigor/kindofmagic</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>MSBuild task to simplify implementation of INotifyPropertyChanged interface for WinRT, Silverlight 2+, .NET 2.0+, Windows Phone 7+, Portable Class Libraries.
+
+During compile time it injects supporting code in property setters: raising PropertyChanged event when value changed.</description>
+    <summary>Effortless INotifyPropertyChanged for .NET, WinRT, Windows Phone, Silverlight and Portable Class Libraries.</summary>
+    <releaseNotes>1.3.1 Nested classes support
+
+1.3.0 WinRT/UWP fixes</releaseNotes>
+    <copyright>Lex Lavnikov</copyright>
+    <language>en</language>
+    <tags>INotifyPropertyChanged MSBuild</tags>
+  </metadata>
+</package>

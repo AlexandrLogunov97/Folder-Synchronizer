@@ -145,7 +145,7 @@
                 <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
             <Label Grid.ColumnSpan="2" Grid.Row="0" VerticalContentAlignment="Center" Content="Target folder"/>
-            <TextBox Grid.Column="0" Grid.Row="1" IsReadOnly="True" VerticalScrollBarVisibility="Auto" BorderBrush="LightGray" HorizontalAlignment="Stretch" Margin="5" TextWrapping="Wrap" Text="{Binding SourceFolderPath}" VerticalContentAlignment="Center" />
+            <TextBox Grid.Column="0" Grid.Row="1" IsReadOnly="True" VerticalScrollBarVisibility="Auto" BorderBrush="LightGray" HorizontalAlignment="Stretch" Margin="5" TextWrapping="Wrap" Text="{Binding SourceFolderPath,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center" />
             <Button Visibility="Collapsed" Grid.Column="2" Grid.Row="1" Width="105" Margin="0,5,5,5" Height="auto" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="14" Padding="1" UseLayoutRounding="True" HorizontalAlignment="Right" Command="{Binding SelectDirectory}" Content="Browse"/>
             <ToggleButton x:Name="SourceBrowse" Grid.Column="2" Margin="0,5,5,5" Grid.Row="1">Browse</ToggleButton>
             <Border Height="auto" Grid.Row="1" Panel.ZIndex="1" Style="{StaticResource SourcePanel}" CornerRadius="3" Background="White" BorderBrush="LightGray" BorderThickness="1" FlowDirection="LeftToRight" Width="198" Grid.ColumnSpan="3" HorizontalAlignment="Right" VerticalAlignment="Top">
@@ -195,7 +195,7 @@
                 <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
             <Label Grid.ColumnSpan="2" Grid.Row="0" VerticalContentAlignment="Center" Content="Target folder"/>
-            <TextBox Grid.Column="0" Grid.Row="1" BorderBrush="LightGray" IsReadOnly="True" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Stretch" Margin="5" TextWrapping="Wrap" Text="{Binding TargetFolderPath}" VerticalContentAlignment="Center" />
+            <TextBox Grid.Column="0" Grid.Row="1" BorderBrush="LightGray" IsReadOnly="True" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Stretch" Margin="5" TextWrapping="Wrap" Text="{Binding TargetFolderPath,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center" />
             <Button Visibility="Collapsed" Grid.Column="2" Grid.Row="1" Width="105" Margin="0,5,5,5" Height="auto" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="14" Padding="1" UseLayoutRounding="True" HorizontalAlignment="Right" Command="{Binding SelectDirectory}" Content="Browse"/>
             <ToggleButton x:Name="TargetBrowse" Grid.Column="2" Margin="0,5,5,5" Grid.Row="1">Browse</ToggleButton>
             <Border Height="auto" Grid.Row="1" Panel.ZIndex="1" Style="{StaticResource TargetPanel}" CornerRadius="3" Background="White" BorderBrush="LightGray" BorderThickness="1" FlowDirection="LeftToRight" Width="198" Grid.ColumnSpan="3" HorizontalAlignment="Right" VerticalAlignment="Top">
@@ -226,7 +226,7 @@
                                     <TextBox BorderBrush="LightGray" Height="30" Margin="0,5,0,0" VerticalContentAlignment="Center" ></TextBox>
                                     <Label >Password</Label>
                                     <TextBox BorderBrush="LightGray" Height="30" Margin="0,5,0,0" VerticalContentAlignment="Center" ></TextBox>
-                                    <Button s:Navigation.Attach="True" s:Navigation.Uri="Views/FtpViewer/ftpViewer.xaml" Command="{Binding SelectTargetFtpDerectory}" CommandParameter="target" Height="30" Margin="0,5,0,0">Browse</Button>
+                                    <Button  s:Navigation.Uri="Views/FtpViewer/ftpViewer.xaml" Command="{Binding SelectTargetFtpDerectory}" CommandParameter="target" Height="30" Margin="0,5,0,0">Browse</Button>
                                 </StackPanel>
                             </Border>
                         </StackPanel>
@@ -250,7 +250,7 @@
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
                 <CheckBox Grid.Column="1" VerticalAlignment="Center" IsChecked="{Binding SynchronizeImmediately}">Synchronize immediately</CheckBox>
-                <Button s:Navigation.Uri="/Views/Repositories/SelectedRepository.xaml" Command="{Binding Create}" Grid.Column="2" Height="30" Margin="5" Width="100">Create</Button>
+                <Button s:Navigation.IsGoBack="True" Command="{Binding Create}" Grid.Column="2" Height="30" Margin="5" Width="100">Create</Button>
             </Grid>
         </Grid>
     </Grid>

@@ -197,7 +197,7 @@
                 </Grid>
 
 
-            <Frame Grid.Column="1" Margin="10"  s:MasterPage.MenuItemTarget="True" NavigationUIVisibility="Hidden" Source="/Work1;component/Views/CreateRepository/Create.xaml"/>
+            <Frame x:Name="presenter" Grid.Column="1" Margin="10"  s:MasterPage.MenuItemTarget="True" NavigationUIVisibility="Hidden" Source="/Work1;component/Views/CreateRepository/Create.xaml"/>
         </Grid>
     </Grid>
 </Page>

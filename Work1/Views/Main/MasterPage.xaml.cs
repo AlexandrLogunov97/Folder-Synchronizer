@@ -26,13 +26,6 @@ namespace Work1.Views.Main
         {
             InitializeComponent();
             this.Repositories.DataContext = ViewModel.Get<RepositoriesViewModel>();
-            Button a=new Button();
-            UIElement b = (UIElement)a;
-        }
-
-        private void border_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            MessageBox.Show("vasv");
         }
     }
 }

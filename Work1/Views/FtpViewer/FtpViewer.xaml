@@ -109,7 +109,7 @@
                         <Image Height="30" Width="30" Grid.Column="1"  Source="/Work1;component/Content/Images/search.png" ></Image>
                     </Grid>
                 </Border>
-                <ListBox Grid.Row="1" SelectedItem="{Binding SelectedDirectory}" ItemTemplate="{StaticResource listTemplate}" x:Name="folders" Background="White" Foreground="Black" ItemsSource="{Binding Derictories}"  FontSize="16">
+                <ListBox Grid.Row="1" SelectedItem="{Binding SelectedDirectory,Mode=TwoWay}" ItemTemplate="{StaticResource listTemplate}" x:Name="folders" Background="White" Foreground="Black" ItemsSource="{Binding Derictories}"  FontSize="16">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseDoubleClick">
                             <i:InvokeCommandAction
@@ -172,7 +172,7 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Button s:Navigation.IsGoBack="True" Grid.Column="0" Margin="5" Height="30">Cancel</Button>
-                <Button s:Navigation.IsGoBack="True" Grid.Column="2" Margin="5" Height="30" Command="{Binding Select}">Select</Button>
+                <Button s:Navigation.Uri="/Views/CreateRepository/Create.xaml" Grid.Column="2" Margin="5" Height="30" Command="{Binding Select}">Select</Button>
             </Grid>
         </Grid>
         <!--<TextBox x:Name="fle"  HorizontalAlignment="Left" Height="250" Margin="10,10,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="580"/>-->

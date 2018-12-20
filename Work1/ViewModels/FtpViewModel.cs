@@ -44,10 +44,17 @@ namespace Work1.ViewModels
             {
                 return toDirectory ?? (toDirectory = new Command(obj =>
                 {
-                    FileDirectoryInfo fdi = SelectedDirectory;
-                    ftpClient.ToDerectory(SelectedDirectory);
-                    sourceDerictories = ftpClient.LoadDerectory();
-                    Derictories = new ObservableCollection<FileDirectoryInfo>(sourceDerictories);   
+                    try
+                    {
+                        FileDirectoryInfo fdi = SelectedDirectory;
+                        ftpClient.ToDerectory(SelectedDirectory);
+                        sourceDerictories = ftpClient.LoadDerectory();
+                        Derictories = new ObservableCollection<FileDirectoryInfo>(sourceDerictories);
+                    }
+                    catch(Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
                 }));
             }
         }
@@ -74,16 +81,17 @@ namespace Work1.ViewModels
             }
         }
 
-        private Command select;
-        public Command Select
+        private NavigationCommand select;
+        public NavigationCommand Select
         {
             get
             {
-                return select ?? (select = new Command(obj =>
+                return select ?? (select = new NavigationCommand(obj =>
                 {
                     //ViewModel.Get<SelectDerectoryViewModel>().SetSelectedPath(SelectedDirectory.Adress);
                     //((IFtpViewerResult)ViewModel.Get<FtpViewModel>())
                     ((IFtpViewerResult)toResult).SetSelectedPath(SelectedDirectory.Adress);
+                    Select.CanCantinue = true;
                 },obj=> {
                     return SelectedDirectory!=null && SelectedDirectory.Type==DirectoryType.Folder;
                 }));
@@ -94,7 +102,6 @@ namespace Work1.ViewModels
         {
             try
             {
-                
                 ftpClient = new FtpClient(ftpUri, user);
                 FtpUri = ftpUri;
                 sourceDerictories = ftpClient.LoadDerectory();
@@ -184,7 +191,7 @@ namespace Work1.ViewModels
                     {
                         ftpClient.RemoveDirectory(SelectedDirectory.Name);
                         reload();
-                        Rename.CanCantinue = true;
+                        Delete.CanCantinue = true;
                     }
                     catch (Exception ex)
                     {
@@ -203,11 +210,16 @@ namespace Work1.ViewModels
             get
             {
                 return search ?? (search=new Command(obj=> {
-                    var searchQuery = obj as string;
-                    searchQuery = searchQuery.Trim();
-                    SearchQuery = searchQuery;
-                    var searchResult = sourceDerictories.Where(x => x.Name.Contains(searchQuery) || x.Name.StartsWith(searchQuery) || x.Name.EndsWith(searchQuery) || x.Type==DirectoryType.Back);
-                    Derictories = new ObservableCollection<FileDirectoryInfo>(searchResult);
+                    try
+                    {
+                        var searchQuery = obj as string;
+                        searchQuery = searchQuery.Trim();
+                        SearchQuery = searchQuery;
+                        var searchResult = sourceDerictories.Where(x => x.Name.Contains(searchQuery) || x.Name.StartsWith(searchQuery) || x.Name.EndsWith(searchQuery) || x.Type == DirectoryType.Back);
+                        Derictories = new ObservableCollection<FileDirectoryInfo>(searchResult);
+                    }
+                    catch(Exception)
+                    { }
                 }));
             }
         }

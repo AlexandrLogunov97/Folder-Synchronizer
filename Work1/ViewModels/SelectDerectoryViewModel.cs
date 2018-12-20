@@ -157,6 +157,7 @@ namespace Work1.ViewModels
         }
         public void SetSelectedPath(string path)
         {
+
             switch (typeDirectory)
             {
                 case TypeDerectory.Source:
@@ -170,14 +171,16 @@ namespace Work1.ViewModels
                         break;
                     }
             }
+            this.RaisePropertyChanged("SourceFolderPath");
+            this.RaisePropertyChanged("TargetFolderPath");
         }
         public SelectDerectoryViewModel()
         {
             dbContext = new RepositoryDbContext();
 
-            this.SourceFtpUri= "ftp://192.168.1.34:3721/";
-            this.TargetFtpUri= "ftp://192.168.1.34:3721/";
-            this.SourceUser = new FtpUser() { };
+            this.SourceFtpUri = "ftp://192.168.1.100:3721/";
+            this.TargetFtpUri= "ftp://192.168.1.100:3721/";
+            this.SourceUser = new FtpUser() { User="user",Password="password"};
             this.TargetUser = new FtpUser() { };
         }
     }
