@@ -85,28 +85,28 @@ namespace Work1.ViewModels
             }
         }
 
-        private Command selectSourceFtpDirectory;
-        public Command SelectSourceFtpDerectory
+        private NavigationCommand selectSourceFtpDirectory;
+        public NavigationCommand SelectSourceFtpDerectory
         {
             get
             {
-                return selectSourceFtpDirectory ?? (selectSourceFtpDirectory = new Command(obj =>
+                return selectSourceFtpDirectory ?? (selectSourceFtpDirectory = new NavigationCommand(obj =>
                 {
-                    ViewModel.Get<FtpViewModel>().Connect(SourceFtpUri, new FtpUser(),this);
+                    SelectSourceFtpDerectory.CanCantinue=ViewModel.Get<FtpViewModel>().Connect(SourceFtpUri, SourceUser,this);
                     SourceType = "FTP";
                     typeDerectory = TypeDerectory.Source;
                 }));
             }
         }
 
-        private Command selectTargetFtpDerectory;
-        public Command SelectTargetFtpDerectory
+        private NavigationCommand selectTargetFtpDerectory;
+        public NavigationCommand SelectTargetFtpDerectory
         {
             get
             {
-                return selectTargetFtpDerectory ?? (selectTargetFtpDerectory = new Command(obj =>
+                return selectTargetFtpDerectory ?? (selectTargetFtpDerectory = new NavigationCommand(obj =>
                 {
-                    ViewModel.Get<FtpViewModel>().Connect(TargetFtpUri, new FtpUser(),this);
+                    SelectTargetFtpDerectory.CanCantinue=ViewModel.Get<FtpViewModel>().Connect(TargetFtpUri, TargetUser,this);
                     TargetType = "FTP";
                     typeDerectory = TypeDerectory.Target;
                 }));
@@ -301,6 +301,8 @@ namespace Work1.ViewModels
         {
             dbContext = new RepositoryDbContext();
             repSource = dbContext.Repositories.ToList();
+            SourceUser = new FtpUser();
+            TargetUser = new FtpUser();
             this.Repositories = new ObservableCollection<Repository>(repSource);
         }
     }
