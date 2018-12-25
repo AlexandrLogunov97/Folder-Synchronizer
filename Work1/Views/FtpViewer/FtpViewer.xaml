@@ -166,7 +166,7 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Button s:Navigation.IsGoBack="True" Grid.Column="0" Margin="5" Height="30">Cancel</Button>
-                <Button s:Navigation.Uri="/Views/CreateRepository/Create.xaml" Grid.Column="2" Margin="5" Height="30" Command="{Binding Select}">Select</Button>
+                <Button s:Navigation.IsGoBack="True" Grid.Column="2" Margin="5" Height="30" Command="{Binding Select}">Select</Button>
             </Grid>
         </Grid>
         <!--<TextBox x:Name="fle"  HorizontalAlignment="Left" Height="250" Margin="10,10,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="580"/>-->
